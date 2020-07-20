@@ -1,0 +1,58 @@
+{
+    "IDN" : {
+        "levels": 4,
+        "code": "IDN",
+        "root": "FXvOBB2U8qI",
+        "en": {
+            "1": "Province",
+            "2": "Regency/City",
+            "3": "District",
+            "4": "Village"
+        }
+    },
+    "NP" : {
+        "levels": 4,
+        "code": "NP",
+        "root": "ypROGtsIPyQ",
+        "en": {
+            "1": "Province",
+            "2": "District",
+            "3": "Municipality",
+            "4": "Village/City"
+        }
+    },
+    "MM" : {
+        "levels": 4,
+        "code": "MM",
+        "root": "XQA6MdhkB7E",
+        "en": {
+            "1": "Region",
+            "2": "Area (Township)",
+            "3": "Village Track",
+            "4": "Village"
+        }
+    },
+    "VN" : {
+        "levels": 5,
+        "code": "VN",
+        "root": "UwaTdqTIwPD",
+        "en": {
+            "1": "Province",
+            "2": "District",
+            "3": "Commune",
+            "4": "Rural Commune/Commune-level Town",
+            "5": "Ward"
+        }
+    },
+    "PH" : {
+        "levels": 4,
+        "code": "PH",
+        "root": "Sid1iD2NtRY",
+        "en": {
+            "1": "Region",
+            "2": "Province",
+            "3": "City/Municipality",
+            "4": "Barangay/Village"
+        }
+    }    
+}

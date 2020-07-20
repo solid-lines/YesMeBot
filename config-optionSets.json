@@ -1,0 +1,352 @@
+{
+    "N48JExn2s73": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "KL0Xa2sKB6z": {
+        "name": "disability",
+        "options": {
+            "en": {
+                "Yes": "true",
+                "No": "false"
+            }
+        }
+    },
+    "x0UrHbYSL3Y": {
+        "name": "difficulty_level_1",
+        "options": {
+            "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            }
+        }
+    },
+    "PqKC9IMoUMb": {
+        "name": "difficulty_level_2",
+        "options": {
+            "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            }
+        }
+    },
+    "KeZXTI2NSqq": {
+        "name": "difficulty_level_3",
+        "options": {
+            "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            }
+        }
+    },
+    "I4SUHnzdUXO": {
+        "name": "difficulty_level_4",
+        "options": {
+            "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            }
+        }
+    },
+    "Gz3AP15FahX": {
+        "name": "difficulty_level_5",
+        "options": {
+            "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            }
+        }
+    },
+    "NSten0ulp8k": {
+        "name": "difficulty_level_6",
+        "options": {
+            "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            }
+        }
+    },
+    "YesNoFixed": {
+        "name": "yesnofixed",
+        "options": {
+            "en": {
+                "Yes": "yes",
+                "No": "no"
+            }
+        }
+    },
+    "vvbuQ4wOdOG": {
+        "name": "guardian_details",
+        "options": {
+            "en": {
+                "Mother": "Mother",
+                "Father": "Father",
+                "Guardian": "Guardian"
+            }
+        }
+    },   
+    "YxAMv6GbirR": {
+        "name": "civil_status",
+        "options": {
+            "en": {
+                "Single": "Single",
+                "Married": "Married",
+                "Divorced": "Divorced",
+                "Seperated": "Seperated",
+                "Living with partner": "LWP",
+                "Single parent": "Single parent",
+                "Widow": "Widow"
+            }
+        }
+    },
+    "TD8iSI7UW9x": {
+        "name": "children",
+        "options": {
+            "en": {
+                "Yes": "true",
+                "No": "false"
+            }
+        }
+    },
+    "eFDaW1RahU0": {
+        "name": "number_of_children",
+        "options": {
+            "en": {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6": "6",
+                "7": "7",
+                "8": "8",
+                "9": "9",
+                "10": "10"
+            }
+        }
+    },
+    "WmO7co2Nu0u": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "Ywmb3rBJyPQ": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "KnaGlxf3fp7": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "Tz2lhyWQ31M": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "oOkIymEV5ea": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "xSEvvZGph8n": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "pXIxvKgDZkI": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "CAkB0xAK2xz": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "scgkT6SShiA": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "XfQ2tQkQORZ": {
+        "name": "gender",
+        "options": {
+            "en": {
+                "Female": "Female",
+                "Male": "Male",
+                "Other": "Other"
+            }
+        }
+    },
+    "iEaU0tco875": {
+        "name": "studying",
+        "options": {
+            "en": {
+                "Yes": "true",
+                "No": "false"
+            }
+        }
+    },
+    "ceeC2S9vb0u": {
+        "name": "employed",
+        "options": {
+            "en": {
+                "Yes": "true",
+                "No": "false"
+            }
+        }
+    },
+    "xtdoCP0yduA": {
+        "name": "disability",
+        "options": {
+            "en": {
+                "Yes": "true",
+                "No": "false"
+            }
+        }
+    },
+    "KLSVjftH2xS": {
+        "name": "donor",
+        "options": {
+            "IDN": {
+                "UNKNOWN": "UNKNOWN",
+                "ID-Agriculture": "ID-Agriculture",
+                "ID-BLOOM": "ID-BLOOM",
+                "ID-EC": "ID-EC",
+                "ID-Fishery": "ID-Fishery",
+                "ID-GIRL": "ID-GIRL",
+                "ID-GNO": "ID-GNO",
+                "ID-Green Skill": "ID-Green Skill",
+                "ID-Kiat Muda": "ID-Kiat Muda",
+                "ID-Livestock": "ID-Livestock",
+                "ID-MOJA": "ID-MOJA",
+                "ID-SCILD": "ID-SCILD",
+                "ID-SWITCH": "ID-SWITCH",
+                "ID-Tech Muda": "ID-Tech Muda",
+                "ID-Tourism": "ID-Tourism",
+                "ID-UKNO": "ID-UKNO",
+                "ID-W4W": "ID-W4W"
+            },
+            "NPL": {
+                "UNKNOWN": "UNKNOWN",
+                "NPL-CHNO": "NPL-CHNO",
+                "NPL-CHNO/NLNO": "NPL-CHNO/NLNO",
+                "NPL-GNO": "NPL-GNO",
+                "NPL-JNO": "NPL-JNO",
+                "NPL-NLNO": "NPL-NLNO"
+            },
+            "PHP": {
+                "UNKNOWN": "UNKNOWN",
+                "PH-ACN": "PH-ACN",
+                "PH-ADB": "PH-ADB",
+                "PH-BLF": "PH-BLF",
+                "PH-DEC": "PH-DEC",
+                "PH-Hyundai Motor": "PH-Hyundai Motor",
+                "PH-Hyundai Steel" : "PH-Hyundai Steel",
+                "PH-Philips": "PH-Philips",
+                "PH-RAISE": "PH-RAISE",
+                "PH-Regular Program": "PH-Regular Program",
+                "PH-ROTA": "PH-ROTA"
+            },
+            "VN": {
+                "UNKNOWN": "UNKNOWN",
+                "Germany BP": "Germany Foundation BP# 143-VTN",
+                "Various Swiss": "Various Swiss Donors BP#596-VTN",
+                "Adecco" : "Adecco Group Foundation-VTN"
+            },
+            "MM": {
+                "UNKNOWN": "UNKNOWN",
+                "MM-ANO (DFAT)": "MM-ANO (DFAT)",
+                "MM-JNO": "MM-JNO (Individual donors)",
+                "MM-Sponsorship": "MM-Sponsorship and JNO"
+            }
+        }
+    },
+    "Countries": {
+        "options": {
+           "en":{
+                "Indonesia": "IDN",
+                "Nepal": "NPL",
+                "Vietnam": "VN",
+                "Myanmar": "MM",
+                "Philippines": "PHP"
+            }
+        }
+    },
+    "Languages": {
+        "options": {
+           "en":{
+                "English": "en",
+                "Nepali": "np",
+                "Vietnamisse": "vn",
+                "Burmisse": "mm",
+                "Philippino": "ph"
+            }
+        }
+    }
+}
