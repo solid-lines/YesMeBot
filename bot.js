@@ -521,7 +521,7 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
-            case question.savaAndValidateMemberOrganisation: {
+            case question.saveAndValidateMemberOrganisation: {
                 await workflow.saveAndValidateMemberOrganisation(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;

@@ -759,7 +759,7 @@ async function saveAndValidateStopEducation (flow, turnContext, profile)  {
 }
 
 async function questionMemberOrganisation (flow, turnContext, profile) {
-    flow.nextQuestion = question.savaAndValidateMemberOrganisation;
+    flow.nextQuestion = question.saveAndValidateMemberOrganisation;
     let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.memberOrganisation].options[profile.userLanguage]), messages.questionEducation5);
     await turnContext.sendActivity(message);
 }
