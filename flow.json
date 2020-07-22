@@ -2,6 +2,7 @@
     "none": "none",
     "welcome": "welcome",
     "language": "language",
+    "validateLanguage": "validateLanguage",
     "policy": "policy",
     "validatePolicy": "validatePolicy",
     "country": "country",
