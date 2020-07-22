@@ -304,7 +304,7 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
-            case question.saveAndValidateGuardianDetatils1:{
+            case question.saveAndValidateGuardianDetails1:{
                 await workflow.saveAndValidateGuardianDetails1(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
@@ -315,7 +315,7 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
-            case question.saveAndValidateGuardianDetatils2:{
+            case question.saveAndValidateGuardianDetails2:{
                 await workflow.saveAndValidateGuardianDetails2(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
@@ -325,7 +325,7 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
-            case question.saveAndValidateGuardianDetatils3:{
+            case question.saveAndValidateGuardianDetails3:{
                 await workflow.saveAndValidateGuardianDetails3(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
@@ -335,7 +335,7 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
-            case question.saveAndValidateGuardianDetatils4:{
+            case question.saveAndValidateGuardianDetails4:{
                 await workflow.saveAndValidateGuardianDetails4(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
@@ -345,7 +345,7 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
-            case question.saveAndValidateGuardianDetatils5:{
+            case question.saveAndValidateGuardianDetails5:{
                 await workflow.saveAndValidateGuardianDetails5(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
@@ -356,7 +356,7 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
-            case question.saveAndValidateGuardianDetatils6:{
+            case question.saveAndValidateGuardianDetails6:{
                 await workflow.saveAndValidateGuardianDetails6(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;

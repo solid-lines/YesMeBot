@@ -415,7 +415,7 @@ async function saveAndValidateGuardian (flow, turnContext, profile)  {
 }
 
 async function questionGuardianDetails1(flow, turnContext, profile) {
-    flow.nextQuestion = question.saveAndValidateGuardianDetatils1;
+    flow.nextQuestion = question.saveAndValidateGuardianDetails1;
     var text = messages.questionGuardianFirstName + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
@@ -433,7 +433,7 @@ async function saveAndValidateGuardianDetails1(flow, turnContext, profile) {
 }
 
 async function questionGuardianDetails2(flow, turnContext, profile) {
-    flow.nextQuestion = question.saveAndValidateGuardianDetatils2;
+    flow.nextQuestion = question.saveAndValidateGuardianDetails2;
     var text = messages.questionGuardianMiddleName + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
@@ -451,7 +451,7 @@ async function saveAndValidateGuardianDetails2(flow, turnContext, profile) {
 }
 
 async function questionGuardianDetails3(flow, turnContext, profile) {
-    flow.nextQuestion = question.saveAndValidateGuardianDetatils3;
+    flow.nextQuestion = question.saveAndValidateGuardianDetails3;
     var text = messages.questionGuardianLastName + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
@@ -469,7 +469,7 @@ async function saveAndValidateGuardianDetails3(flow, turnContext, profile) {
 }
 
 async function questionGuardianDetails4(flow, turnContext, profile) {
-    flow.nextQuestion = question.saveAndValidateGuardianDetatils4;
+    flow.nextQuestion = question.saveAndValidateGuardianDetails4;
     var text = messages.questionGuardianConctact + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
@@ -487,7 +487,7 @@ async function saveAndValidateGuardianDetails4(flow, turnContext, profile) {
 }
 
 async function questionGuardianDetails5(flow, turnContext, profile) {
-    flow.nextQuestion = question.saveAndValidateGuardianDetatils5;
+    flow.nextQuestion = question.saveAndValidateGuardianDetails5;
     var text = messages.questionGuardianOccupation + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
@@ -505,7 +505,7 @@ async function saveAndValidateGuardianDetails5(flow, turnContext, profile) {
 }
 
 async function questionGuardianDetails6(flow, turnContext, profile) {
-    flow.nextQuestion = question.saveAndValidateGuardianDetatils6;
+    flow.nextQuestion = question.saveAndValidateGuardianDetails6;
     var text = messages.questionGuardianRelationship;
     await turnContext.sendActivity(text);
 }
