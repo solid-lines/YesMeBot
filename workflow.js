@@ -37,6 +37,9 @@ async function validateLanguage(flow, turnContext, profile) {
 async function questionPolicy(flow, turnContext, profile) {
     flow.nextQuestion = question.validatePolicy;
     let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), messages.questionPolicy);
+    //const reply = { type: ActivityTypes.Message };
+    //reply.text = 'This is an internet attachment.';
+    message.attachments = [getInternetAttachment()];
     await turnContext.sendActivity(message);
 }
 
@@ -1004,6 +1007,15 @@ function getOrgUnitId (OUs, ou_name) {
         ou_name = ou_name.substring(0, ou_name.length -3);
     console.log(ou_name);
     return OUs.find(ou => ou.name.includes(ou_name));
+}
+
+function getInternetAttachment() {
+    // NOTE: The contentUrl must be HTTPS.
+    return {
+        name: 'ChatbotPolicy.pdf',
+        contentType: 'application/pdf',
+        contentUrl: 'https://yesme.solidlines.io/ChatbotPolicy.pdf'
+    };
 }
 
 async function saveProfile(profile) {
