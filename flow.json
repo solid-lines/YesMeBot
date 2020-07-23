@@ -5,6 +5,8 @@
     "validateLanguage": "validateLanguage",
     "policy": "policy",
     "validatePolicy": "validatePolicy",
+    "userExist": "userExist",
+    "validateUserExist": "validateUserExist",
     "country": "country",
     "validateCountry": "validateCountry",
     "orgunit": "orgunit",

@@ -97,6 +97,17 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
+            case question.userExist:{
+                await workflow.questionUserExist(flow, turnContext, profile);
+                break;
+            }
+
+            case question.validateUserExist:{
+                await workflow.validateUserExist(flow, turnContext, profile);
+                await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
+                break;
+            }
+
             case question.country:{
                 await workflow.questionCountry(flow, turnContext, profile);
                 break;

@@ -27,7 +27,6 @@ async function validateLanguage(flow, turnContext, profile) {
         flow.nextQuestion = question.policy;
         profile.userLanguage = convertOption(mapping.Languages,validation.validatedValue, profile.userLanguage);
         messages = messages_all[profile.userLanguage];
-        console.log('El idioma es ',profile.userLanguage);
     } else {
         flow.nextQuestion = question.language;
         await turnContext.sendActivity(validation.message);        
@@ -37,8 +36,6 @@ async function validateLanguage(flow, turnContext, profile) {
 async function questionPolicy(flow, turnContext, profile) {
     flow.nextQuestion = question.validatePolicy;
     let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), messages.questionPolicy);
-    //const reply = { type: ActivityTypes.Message };
-    //reply.text = 'This is an internet attachment.';
     message.attachments = [getInternetAttachment()];
     await turnContext.sendActivity(message);
 }
@@ -47,10 +44,35 @@ async function validatePolicy(flow, turnContext, profile) {
     let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
         if (["Yes"].includes(validation.validatedValue)) {
-            flow.nextQuestion = question.country;
+            var value = await getProfile(profile);
+            if (value.status == 200) {
+                console.log('The user exists');
+                flow.nextQuestion = question.userExist;
+            } else {
+                await saveProfile(profile);
+                flow.nextQuestion = question.country;
+            }
          } else flow.nextQuestion = question.finishNoSave;
     } else {
         flow.nextQuestion = question.policy;
+        await turnContext.sendActivity(validation.message);        
+    }
+}
+
+async function questionUserExist(flow, turnContext, profile) {
+    flow.nextQuestion = question.validateUserExist;
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), messages.questionUserExists);
+    await turnContext.sendActivity(message);
+}
+
+async function validateUserExist(flow, turnContext, profile) {
+    let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
+    if (validation.success) {
+        if (["Yes"].includes(validation.validatedValue)) {
+            flow.nextQuestion = question.country;
+         } else flow.nextQuestion = question.finishNoSave;
+    } else {
+        flow.nextQuestion = question.userExist;
         await turnContext.sendActivity(validation.message);        
     }
 }
@@ -145,7 +167,6 @@ async function oldquestionOrgUnit(flow, turnContext, profile) {
         }
         var OUs = profile.orgUnitsToChoose;
         var ouToShow = returnFBOptions(getOUItems(OUs), profile.currentFBOptPosition);
-        //console.log('ouToShow', ouToShow);
         var text = messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()];
         let message = MessageFactory.suggestedActions(ouToShow, text);
         await turnContext.sendActivity(message);
@@ -862,9 +883,6 @@ async function initProfile(profile, turnContext, _endpointConfig) {
     var facebookID = turnContext.activity.from.id;
     profile.facebookID = facebookID;
 
-    await saveProfile(profile);
-    
-
     return 1;
 }
 
@@ -892,10 +910,7 @@ function validateDate(potentialDate) {
         // check for the pattern
         var regex_date = /^\d{4}-\d{2}-\d{2}$/;
 
-        console.log('antes de llegar a test');
-        console.log(potentialDate);
         if (!regex_date.test(potentialDate)) {
-            console.log('no pasa la validacion');
             throw (1);
         }
 
@@ -1005,7 +1020,6 @@ function returnFBOptions(data, lastPosition) {
 function getOrgUnitId (OUs, ou_name) {
     if (ou_name.length >= 20)
         ou_name = ou_name.substring(0, ou_name.length -3);
-    console.log(ou_name);
     return OUs.find(ou => ou.name.includes(ou_name));
 }
 
@@ -1021,9 +1035,8 @@ function getInternetAttachment() {
 async function saveProfile(profile) {
 
     var session_url = 'http://13.251.45.248:4455/profile/'+profile.facebookID;
-    console.log(session_url);
     
-    axios.post(session_url, {}, {
+    return axios.post(session_url, {}, {
         auth: {
           username: endpointConfig.middlewareUser,
           password: endpointConfig.middlewarePassword
@@ -1089,6 +1102,21 @@ async function sendToDhis2(profile) {
 async function getChilrenOU(profile) {
     var session_url = 'http://13.251.45.248:4455/getChildrenOU/'+profile.userOrgUnit;
 
+    try {
+        return await axios.get(session_url,{
+            auth: {
+              username: endpointConfig.middlewareUser,
+              password: endpointConfig.middlewarePassword
+            }
+          })
+      } catch (error) {
+        console.error(error)
+    }
+}
+
+async function getProfile(profile) {
+    var session_url = 'http://13.251.45.248:4455/profile/'+profile.facebookID;
+
     console.log (session_url);
 
     try {
@@ -1099,7 +1127,8 @@ async function getChilrenOU(profile) {
             }
           })
       } catch (error) {
-        console.error(error)
+        console.error(error);
+        return error;
     }
 }
 
@@ -1122,4 +1151,4 @@ module.exports = {questionFirstName, saveAndValidateFirstName, questionLastName,
     questionOrganisationName, saveAndValidateOrganisationName, questionPosition, saveAndValidatePosition,
     questionYearsMembership, saveAndValidateYearsMembership, questionRecreations, saveAndValidateRecreations, questionPolicy, validatePolicy, 
     finish, questionOrgUnit, finishNoSave, questionDonor, saveAndValidateDonor, initProfile, questionCountry, validateCountry,
-    questionLanguage, validateLanguage};
+    questionLanguage, validateLanguage, questionUserExist, validateUserExist};
