@@ -8,6 +8,12 @@
             "2": "Regency/City",
             "3": "District",
             "4": "Village"
+        },
+        "idn": {
+            "1": "Province",
+            "2": "Regency/City",
+            "3": "District",
+            "4": "Village"
         }
     },
     "NP" : {
@@ -19,6 +25,12 @@
             "2": "District",
             "3": "Municipality",
             "4": "Village/City"
+        },
+        "idn": {
+            "1": "Province",
+            "2": "Regency/City",
+            "3": "District",
+            "4": "Village"
         }
     },
     "MM" : {
@@ -29,6 +41,12 @@
             "1": "Region",
             "2": "Area (Township)",
             "3": "Village Track",
+            "4": "Village"
+        },
+        "idn": {
+            "1": "Province",
+            "2": "Regency/City",
+            "3": "District",
             "4": "Village"
         }
     },
@@ -42,6 +60,12 @@
             "3": "Commune",
             "4": "Rural Commune/Commune-level Town",
             "5": "Ward"
+        },
+        "idn": {
+            "1": "Province",
+            "2": "Regency/City",
+            "3": "District",
+            "4": "Village"
         }
     },
     "PH" : {
@@ -53,6 +77,12 @@
             "2": "Province",
             "3": "City/Municipality",
             "4": "Barangay/Village"
+        },
+        "idn": {
+            "1": "Province",
+            "2": "Regency/City",
+            "3": "District",
+            "4": "Village"
         }
     }    
 }

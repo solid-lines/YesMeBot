@@ -25,7 +25,9 @@ async function validateLanguage(flow, turnContext, profile) {
     let validation = validateOption(mapping.Languages, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
         flow.nextQuestion = question.policy;
-        profile.userLanguage = convertOption(mapping.Languages,validation.validatedValue, profile.userLanguage)
+        profile.userLanguage = convertOption(mapping.Languages,validation.validatedValue, profile.userLanguage);
+        messages = messages_all[profile.userLanguage];
+        console.log('El idioma es ',profile.userLanguage);
     } else {
         flow.nextQuestion = question.language;
         await turnContext.sendActivity(validation.message);        
@@ -218,10 +220,15 @@ async function questionDateOfBirth (flow, turnContext)  {
 }
 
 async function saveAndValidateDateOfBirth (flow, turnContext, profile)  {
-    flow.nextQuestion = question.presentAddress;
-    await saveDataValue(profile, mapping.dateOfBirth, turnContext.activity.text);
+    let validation = validateDate(turnContext.activity.text);
+    if (validation.success) {
+        flow.nextQuestion = question.presentAddress;
+        await saveDataValue(profile, mapping.dateOfBirth, turnContext.activity.text);       
+    } else {
+        flow.nextQuestion = question.dateOfBirth;
+        await turnContext.sendActivity(validation.message);
+    }
 }
-
 async function questionPresentAddress (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidatePresentAddress;
     await turnContext.sendActivity(messages.questionPresentAddress);
@@ -497,9 +504,9 @@ async function saveAndValidateGuardianDetails5(flow, turnContext, profile) {
     var mappingGuardianDetails;
 
     switch (profile.guardian) {
-        case "Mother": {mappingGuardianDetails = mapping.motherFirstName; break;}
-        case "Father": {mappingGuardianDetails = mapping.fatherFirstName; break;}
-        case "Guardian": {mappingGuardianDetails = mapping.guardianFirstName; flow.nextQuestion = question.guardianDetails6; break;}
+        case "Mother": {mappingGuardianDetails = mapping.motherOccupation; break;}
+        case "Father": {mappingGuardianDetails = mapping.fatheerOccupation; break;}
+        case "Guardian": {mappingGuardianDetails = mapping.guardianOccupation; flow.nextQuestion = question.guardianDetails6; break;}
     }
     await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
 }
@@ -525,9 +532,9 @@ async function saveAndValidateMaritalStatus (flow, turnContext, profile)  {
     let validation = validateOption(mapping.maritalStatus, profile.userLanguage, turnContext.activity.text);
 
     if (validation.success) {
-        if (["Married", "Living with partner"].includes(validation.validatedValue)) {
+        if (["Married", "Menikah", "Tinggal bersama", "Living with partner"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.partnerName;
-        } else if (["Single parent"].includes(validation.validatedValue)) {
+        } else if (["Single parent", "Orangtua tunggal"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.children;
         } else {flow.nextQuestion = question.studying;}
 
@@ -876,6 +883,63 @@ function validateOption(optionSetUID, userLanguage, optionToValidate) {
     }
 }
 
+function validateDate(potentialDate) {
+    try {
+
+        // check for the pattern
+        var regex_date = /^\d{4}-\d{2}-\d{2}$/;
+
+        console.log('antes de llegar a test');
+        console.log(potentialDate);
+        if (!regex_date.test(potentialDate)) {
+            console.log('no pasa la validacion');
+            throw (1);
+        }
+
+        // Parse the date parts to integers
+        var dateTokens = potentialDate.split("-");
+        var dateDay = parseInt(dateTokens[2], 10);
+        var dateMonth = parseInt(dateTokens[1], 10);
+        var dateYear = parseInt(dateTokens[0], 10);
+
+        var currentDate = new Date();
+        var d = Date.parse(potentialDate)
+
+        if (Date.parse(potentialDate)> currentDate) {
+            throw (1);
+        }
+
+        // Check the ranges of month and year
+        if (dateYear < 1000 || dateYear > 3000 || dateMonth == 0 || dateMonth > 12) {
+            throw (1);
+        }
+
+        var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        // Adjust for leap years
+        if (dateYear % 400 == 0 || (dateYear % 100 != 0 && dateYear % 4 == 0)) {
+            monthLength[1] = 29;
+        }
+
+        // Check the range of the day
+        if (dateDay > 0 && dateDay <= monthLength[dateMonth - 1]) {
+            return {
+                success: true,
+                validatedValue: dateMonth + '/' + dateDay + '/' + dateYear
+            };
+        } else {
+            throw (1);
+        }
+
+    } catch (error) {
+        return {
+            success: false,
+            message: messages.InvalidDate
+        };
+    }
+}
+
+
 function validatePositiveInteger(potentialPositiveInteger) {
     try {
         if (!potentialPositiveInteger.match(/^[+]?[0-9]+$/g))
@@ -936,7 +1000,10 @@ function returnFBOptions(data, lastPosition) {
 }
 
 function getOrgUnitId (OUs, ou_name) {
-    return OUs.find(ou => ou.name == ou_name);
+    if (ou_name.length >= 20)
+        ou_name = ou_name.substring(0, ou_name.length -3);
+    console.log(ou_name);
+    return OUs.find(ou => ou.name.includes(ou_name));
 }
 
 async function saveProfile(profile) {

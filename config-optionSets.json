@@ -6,6 +6,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -15,6 +20,10 @@
             "en": {
                 "Yes": "true",
                 "No": "false"
+            },
+            "idn": {
+                "Yes": "true",
+                "No": "false"
             }
         }
     },
@@ -22,6 +31,12 @@
         "name": "difficulty_level_1",
         "options": {
             "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            },
+            "idn": {
                 "No difficulty": "No - no difficulty",
                 "Some difficulty": "Yes – some difficulty",
                 "A lot of difficulty": "Yes – a lot of difficulty",
@@ -37,6 +52,12 @@
                 "Some difficulty": "Yes – some difficulty",
                 "A lot of difficulty": "Yes – a lot of difficulty",
                 "Cannot do at all": "Cannot do at all"
+            },
+            "idn": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
             }
         }
     },
@@ -44,6 +65,12 @@
         "name": "difficulty_level_3",
         "options": {
             "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            },
+            "idn": {
                 "No difficulty": "No - no difficulty",
                 "Some difficulty": "Yes – some difficulty",
                 "A lot of difficulty": "Yes – a lot of difficulty",
@@ -59,6 +86,12 @@
                 "Some difficulty": "Yes – some difficulty",
                 "A lot of difficulty": "Yes – a lot of difficulty",
                 "Cannot do at all": "Cannot do at all"
+            },
+            "idn": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
             }
         }
     },
@@ -66,6 +99,12 @@
         "name": "difficulty_level_5",
         "options": {
             "en": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
+            },
+            "idn": {
                 "No difficulty": "No - no difficulty",
                 "Some difficulty": "Yes – some difficulty",
                 "A lot of difficulty": "Yes – a lot of difficulty",
@@ -81,6 +120,12 @@
                 "Some difficulty": "Yes – some difficulty",
                 "A lot of difficulty": "Yes – a lot of difficulty",
                 "Cannot do at all": "Cannot do at all"
+            },
+            "idn": {
+                "No difficulty": "No - no difficulty",
+                "Some difficulty": "Yes – some difficulty",
+                "A lot of difficulty": "Yes – a lot of difficulty",
+                "Cannot do at all": "Cannot do at all"
             }
         }
     },
@@ -88,6 +133,10 @@
         "name": "yesnofixed",
         "options": {
             "en": {
+                "Yes": "yes",
+                "No": "no"
+            },
+            "idn": {
                 "Yes": "yes",
                 "No": "no"
             }
@@ -100,6 +149,11 @@
                 "Mother": "Mother",
                 "Father": "Father",
                 "Guardian": "Guardian"
+            },
+            "idn": {
+                "Ibu": "Mother",
+                "Ayah": "Father",
+                "Pengasuh": "Guardian"
             }
         }
     },   
@@ -114,6 +168,15 @@
                 "Living with partner": "LWP",
                 "Single parent": "Single parent",
                 "Widow": "Widow"
+            },
+            "idn": {
+                "Sendiri": "Single",
+                "Menikah": "Married",
+                "Divorced": "Divorced",
+                "Berpisah": "Seperated",
+                "Tinggal bersama": "LWP",
+                "Orangtua tunggal": "Single parent",
+                "Janda": "Widow"
             }
         }
     },
@@ -123,6 +186,10 @@
             "en": {
                 "Yes": "true",
                 "No": "false"
+            },
+            "idn": {
+                "Yes": "yes",
+                "No": "no"
             }
         }
     },
@@ -130,6 +197,18 @@
         "name": "number_of_children",
         "options": {
             "en": {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6": "6",
+                "7": "7",
+                "8": "8",
+                "9": "9",
+                "10": "10"
+            },
+            "idn": {
                 "1": "1",
                 "2": "2",
                 "3": "3",
@@ -150,6 +229,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -160,6 +244,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -170,6 +259,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -180,6 +274,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -190,6 +289,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -200,6 +304,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -210,6 +319,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -220,6 +334,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -230,6 +349,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -240,6 +364,11 @@
                 "Female": "Female",
                 "Male": "Male",
                 "Other": "Other"
+            },
+            "idn": {
+                "Perempuan": "Female",
+                "Laki-laki": "Male",
+                "Lain-lain": "Other"
             }
         }
     },
@@ -247,6 +376,10 @@
         "name": "studying",
         "options": {
             "en": {
+                "Yes": "true",
+                "No": "false"
+            },
+            "idn": {
                 "Yes": "true",
                 "No": "false"
             }
@@ -258,6 +391,10 @@
             "en": {
                 "Yes": "true",
                 "No": "false"
+            },
+            "idn": {
+                "Yes": "true",
+                "No": "false"
             }
         }
     },
@@ -265,6 +402,10 @@
         "name": "disability",
         "options": {
             "en": {
+                "Yes": "true",
+                "No": "false"
+            },
+            "idn": {
                 "Yes": "true",
                 "No": "false"
             }
@@ -300,7 +441,7 @@
                 "NPL-JNO": "NPL-JNO",
                 "NPL-NLNO": "NPL-NLNO"
             },
-            "PHP": {
+            "PH": {
                 "UNKNOWN": "UNKNOWN",
                 "PH-ACN": "PH-ACN",
                 "PH-ADB": "PH-ADB",
@@ -334,7 +475,14 @@
                 "Nepal": "NPL",
                 "Vietnam": "VN",
                 "Myanmar": "MM",
-                "Philippines": "PHP"
+                "Philippines": "PH"
+            },
+            "idn":{
+                "Indonesia": "IDN",
+                "Nepal": "NPL",
+                "Vietnam": "VN",
+                "Myanmar": "MM",
+                "Philippines": "PH"
             }
         }
     },
@@ -342,10 +490,10 @@
         "options": {
            "en":{
                 "English": "en",
+                "bahasa": "idn",
                 "Nepali": "np",
-                "Vietnamisse": "vn",
-                "Burmisse": "mm",
-                "Philippino": "ph"
+                "Vietnamese": "vn",
+                "Burmese": "mm"
             }
         }
     }
