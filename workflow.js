@@ -976,8 +976,8 @@ function returnFBOptions(data, lastPosition) {
     if (lastPosition == null) lastPosition = 0;
     if (len <= MAX_FACEBOOK_OPTIONS) return data;
 
-    positionsToMove = lastPosition + 9;
-    list = data.slice(lastPosition, positionsToMove)
+    var positionsToMove = lastPosition + 9;
+    var list = data.slice(lastPosition, positionsToMove)
 
     if (positionsToMove < len) list.push(FB_MOVE_TO_RIGHT);
     if (lastPosition > 0) list.unshift(FB_MOVE_TO_LEFT);
