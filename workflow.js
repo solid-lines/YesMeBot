@@ -279,7 +279,9 @@ async function saveAndValidateDisability(flow, turnContext, profile) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.disability1;
-        } else flow.nextQuestion = question.below21Years;
+        } else {
+            flow.nextQuestion = question.below21Years;
+        }
         await saveDataValue(profile, mapping.disability, convertOption(mapping.disability, validation.validatedValue, profile.userLanguage));
     } else {
         flow.nextQuestion = question.disability;
@@ -946,7 +948,7 @@ function validateOption(optionSetUID, userLanguage, optionToValidate, messages) 
         validOptionsDict[option.toUpperCase()] = option;
     });
 
-    let optionToValidateCleaned = (optionToValidate == null)? "" : optionToValidate.toUpperCase().trim();
+    let optionToValidateCleaned = (optionToValidate == null) ? "" : optionToValidate.toUpperCase().trim();
 
     if (Object.keys(validOptionsDict).includes(optionToValidateCleaned)) {
         return { success: true, validatedValue: validOptionsDict[optionToValidateCleaned] };
