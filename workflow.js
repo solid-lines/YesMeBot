@@ -105,7 +105,11 @@ async function questionOrgUnit(flow, turnContext, profile) {
             profile.currentFBOptPosition = profile.currentFBOptPosition - 9;
     } else {
         if (profile.userOrgUnitLevel != 0) {
-            var selectedOrgUnit = getOrgUnitId(profile.orgUnitsToChoose, turnContext.activity.text);
+            var selectedOrgUnit = null
+            if (turnContext.activity.text != null){
+                selectedOrgUnit = getOrgUnitId(profile.orgUnitsToChoose, turnContext.activity.text);
+            }
+
             if (selectedOrgUnit != null) {
                 profile.userOrgUnit = selectedOrgUnit.id;
             } else {
