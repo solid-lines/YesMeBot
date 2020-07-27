@@ -1,10 +1,5 @@
-const { ActivityTypes, MessageFactory, ActivityHandler } = require("botbuilder");
-const dateformat = require('dateformat');
-const https = require("https");
-const messages_all = require('./messages-all.json');
-const mapping = require('./mapping.json');
+const { ActivityTypes, ActivityHandler } = require("botbuilder");
 const question = require('./flow.json');
-const optionSets = require('./config-optionSets.json');
 const workflow = require('./workflow');
 
 // Read log file path from .env file
@@ -29,7 +24,6 @@ console.error = console.log;
 console.info = console.log;*/
 
 // shared variables
-var shareURL;
 var endpointConfig;
 
 
