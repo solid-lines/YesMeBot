@@ -136,44 +136,6 @@ async function questionOrgUnit(flow, turnContext, profile) {
 }
 
 
-async function oldquestionOrgUnit(flow, turnContext, profile) {    
-    if (profile.userOrgUnitLevel == orgUnitLevels[profile.country].levels && 
-        (turnContext.activity.text != FB_MOVE_TO_RIGHT && turnContext.activity.text != FB_MOVE_TO_LEFT)) {
-        flow.nextQuestion = question.donor;
-        profile.userOrgUnit = getOrgUnitId(profile.orgUnitsToChoose, turnContext.activity.text).id;
-        profile.currentFBOptPosition = 0;
-        saveOrgUnit(profile);
-    } else {
-        if (profile.userOrgUnitLevel != 0) {
-            var selectedOrgUnit = getOrgUnitId(profile.orgUnitsToChoose, turnContext.activity.text);
-            if (selectedOrgUnit !=null) {
-                profile.userOrgUnit = selectedOrgUnit.id;
-            }
-        }
-        //var action = null;
-        flow.nextQuestion = question.orgunit;
-        if (turnContext.activity.text == FB_MOVE_TO_RIGHT || turnContext.activity.text == FB_MOVE_TO_LEFT) {
-            if (turnContext.activity.text == FB_MOVE_TO_RIGHT) {
-                profile.currentFBOptPosition = profile.currentFBOptPosition + 9;
-                //action = FB_MOVE_TO_RIGHT;
-            } else {
-                profile.currentFBOptPosition = profile.currentFBOptPosition -9;
-                //action = FB_MOVE_TO_RIGHT;
-            }
-        } else {
-            profile.userOrgUnitLevel++;
-            profile.currentFBOptPosition = 0;
-            var response = await getChilrenOU(profile);
-            profile.orgUnitsToChoose = response.data;
-        }
-        var OUs = profile.orgUnitsToChoose;
-        var ouToShow = returnFBOptions(getOUItems(OUs), profile.currentFBOptPosition);
-        var text = profile.messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()];
-        let message = MessageFactory.suggestedActions(ouToShow, text);
-        await turnContext.sendActivity(message);
-    }
-}
-
 async function questionDonor (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDonor;
     var optionsToShow = returnFBOptions(Object.keys(optionSets[mapping.donor].options[profile.country]), profile.currentFBOptPosition);
