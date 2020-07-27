@@ -66,7 +66,8 @@ class YesMeBot extends ActivityHandler {
         switch (flow.nextQuestion) {
             
             case question.welcome:{
-                await workflow.initProfile(profile, turnContext, endpointConfig);
+                await workflow.initProfile(flow, profile, turnContext, endpointConfig);
+                break;
             }
 
             case question.language: {

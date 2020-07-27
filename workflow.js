@@ -6,7 +6,6 @@ const {MessageFactory} = require("botbuilder");
 
 const question = require('./flow.json');
 const orgUnitLevels = require('./country-levels.json');
-const { response } = require('express');
 
 const MAX_FACEBOOK_OPTIONS = 11;
 const FB_MOVE_TO_RIGHT = '->';
@@ -46,7 +45,7 @@ async function validatePolicy(flow, turnContext, profile) {
         if (["Yes"].includes(validation.validatedValue)) {
             var value = await getProfile(profile);
             if (value.status == 200) {
-                console.log('The user exists');
+                console.log('The user exists');// The user exists on MongoDB
                 flow.nextQuestion = question.userExist;
             } else {
                 await saveProfile(profile);
@@ -173,7 +172,7 @@ async function questionFirstName (flow, turnContext, profile)  {
 
 async function saveAndValidateFirstName (flow, turnContext, profile)  {
     flow.nextQuestion = question.lastName;
-    result = await saveDataValue(profile, mapping.firstName, turnContext.activity.text);
+    await saveDataValue(profile, mapping.firstName, turnContext.activity.text);
 }
 
 async function questionLastName (flow, turnContext, profile)  {
@@ -716,7 +715,7 @@ async function questionInterests (flow, turnContext, profile)  {
 
 async function saveAndValidateInterests (flow, turnContext, profile)  {
     flow.nextQuestion = question.highestEducation;
-    result = await saveDataValue(profile, mapping.interests, turnContext.activity.text);
+    await saveDataValue(profile, mapping.interests, turnContext.activity.text);
 }
 
 async function questionHighestEducation (flow, turnContext, profile)  {
@@ -726,7 +725,7 @@ async function questionHighestEducation (flow, turnContext, profile)  {
 
 async function saveAndValidateHighestEducation (flow, turnContext, profile)  {
     flow.nextQuestion = question.yearGraduated;
-    result = await saveDataValue(profile, mapping.highestEducation, turnContext.activity.text);
+    await saveDataValue(profile, mapping.highestEducation, turnContext.activity.text);
 }
 
 async function questionYearGraduated (flow, turnContext, profile)  {
@@ -741,7 +740,7 @@ async function saveAndValidateYearGraduated (flow, turnContext, profile)  {
         if (profile.studying == 'No') {
             flow.nextQuestion = question.stopEducation;
         } else {flow.nextQuestion = question.memberOrganisation;}
-        result = await saveDataValue(profile, mapping.yearGraduated, turnContext.activity.text);    
+        await saveDataValue(profile, mapping.yearGraduated, turnContext.activity.text);
     } else {
         flow.nextQuestion = question.yearGraduated;
         await turnContext.sendActivity(validation.message);
@@ -755,7 +754,7 @@ async function questionStopEducation (flow, turnContext, profile)  {
 
 async function saveAndValidateStopEducation (flow, turnContext, profile)  {
     flow.nextQuestion = question.memberOrganisation;
-    result = await saveDataValue(profile, mapping.stopEducation, turnContext.activity.text);
+    await saveDataValue(profile, mapping.stopEducation, turnContext.activity.text);
 }
 
 async function questionMemberOrganisation (flow, turnContext, profile) {
@@ -785,7 +784,7 @@ async function questionOrganisationName (flow, turnContext, profile)  {
 
 async function saveAndValidateOrganisationName (flow, turnContext, profile)  {
     flow.nextQuestion = question.position;
-    result = await saveDataValue(profile, mapping.organizationName, turnContext.activity.text);
+    await saveDataValue(profile, mapping.organizationName, turnContext.activity.text);
 }
 
 async function questionPosition (flow, turnContext, profile)  {
@@ -795,7 +794,7 @@ async function questionPosition (flow, turnContext, profile)  {
 
 async function saveAndValidatePosition (flow, turnContext, profile)  {
     flow.nextQuestion = question.yearsMembership;
-    result = await saveDataValue(profile, mapping.position, turnContext.activity.text);
+    await saveDataValue(profile, mapping.position, turnContext.activity.text);
 }
 
 async function questionYearsMembership (flow, turnContext, profile)  {
@@ -807,7 +806,7 @@ async function saveAndValidateYearsMembership (flow, turnContext, profile)  {
     let validation = validatePositiveInteger(turnContext.activity.text, profile);
     if (validation.success) {
         flow.nextQuestion = question.recreations;
-        result = await saveDataValue(profile, mapping.yearsMembership, turnContext.activity.text);    
+        await saveDataValue(profile, mapping.yearsMembership, turnContext.activity.text);
     } else {
         flow.nextQuestion = question.yearsMembership;
         await turnContext.sendActivity(validation.message);
@@ -822,7 +821,7 @@ async function questionRecreations (flow, turnContext, profile)  {
 
 async function saveAndValidateRecreations (flow, turnContext, profile)  {
     flow.nextQuestion = question.finish;
-    result = await saveDataValue(profile, mapping.recreations, turnContext.activity.text);
+    await saveDataValue(profile, mapping.recreations, turnContext.activity.text);
 }
 
 async function finish (flow, turnContext, profile)  {
@@ -836,7 +835,7 @@ async function finishNoSave (flow, turnContext, profile)  {
     flow.nextQuestion = question.welcome;
 }
 
-async function initProfile(profile, turnContext, _endpointConfig) {
+async function initProfile(flow, profile, turnContext, _endpointConfig) {
     // clear the profile
     for (var member in profile) delete profile[member];
 
@@ -853,7 +852,7 @@ async function initProfile(profile, turnContext, _endpointConfig) {
     var facebookID = turnContext.activity.from.id;
     profile.facebookID = facebookID;
 
-    return 1;
+    flow.nextQuestion = question.welcome;
 }
 
 function validateOption(optionSetUID, userLanguage, optionToValidate, messages) {
