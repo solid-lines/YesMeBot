@@ -46,6 +46,12 @@ class YesMeBot extends ActivityHandler {
     async onTurn(turnContext) {
         // This bot listens for message activities.
         if (turnContext.activity.type === ActivityTypes.Message) {
+
+            // Set text to null in case of "images", "like", "gif", "file attached"...
+            if (Object.prototype.hasOwnProperty.call(turnContext, 'attachments')) {
+                turnContext.activity.text = null;
+            }
+
             // Get the state properties from the turn context.
             const flow = await this.conversationFlow.get(turnContext, { nextQuestion: question.welcome });
             const profile = await this.userProfileAccessor.get(turnContext, {});

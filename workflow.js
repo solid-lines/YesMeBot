@@ -946,7 +946,7 @@ function validateOption(optionSetUID, userLanguage, optionToValidate, messages) 
         validOptionsDict[option.toUpperCase()] = option;
     });
 
-    let optionToValidateCleaned = optionToValidate.toUpperCase().trim();
+    let optionToValidateCleaned = (optionToValidate == null)? "" : optionToValidate.toUpperCase().trim();
 
     if (Object.keys(validOptionsDict).includes(optionToValidateCleaned)) {
         return { success: true, validatedValue: validOptionsDict[optionToValidateCleaned] };
