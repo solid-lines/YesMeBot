@@ -734,7 +734,7 @@ async function questionYearGraduated(flow, turnContext, profile) {
 }
 
 async function saveAndValidateYearGraduated(flow, turnContext, profile) {
-    let validation = validatePositiveInteger(turnContext.activity.text, profile);
+    let validation = validateYearGraduated(turnContext.activity.text, profile);
     if (validation.success) {
         //TODO Review language
         if (profile.studying == 'No') {
@@ -937,6 +937,23 @@ function validatePositiveInteger(potentialPositiveInteger, profile) {
         return { success: false, message: profile.messages.InvalidPositiveOrZeroInteger };
     } catch (error) {
         return { success: false, message: profile.messages.InvalidPositiveOrZeroInteger };
+    }
+}
+
+function validateYearGraduated(potentialYearGraduated, profile) {
+
+    const current_year = new Date().getFullYear();
+
+    try {
+        if (!potentialYearGraduated.match(/^[+]?[0-9]+$/g))
+            throw (1);
+        let n = parseInt(potentialYearGraduated);
+        if (!isNaN(potentialYearGraduated) && n >= 0 && n <= current_year) {
+            return { success: true, validatedValue: n };
+        }
+        return { success: false, message: profile.messages.InvalidGraduatedYear };
+    } catch (error) {
+        return { success: false, message: profile.messages.InvalidGraduatedYear };
     }
 }
 
