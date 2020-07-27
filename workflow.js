@@ -12,12 +12,11 @@ const MAX_FACEBOOK_OPTIONS = 11;
 const FB_MOVE_TO_RIGHT = '->';
 const FB_MOVE_TO_LEFT = '<-';
 
-var messages;
 var endpointConfig;
 
 async function questionLanguage(flow, turnContext, profile) {
     flow.nextQuestion = question.validateLanguage;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.Languages].options[profile.userLanguage]), messages.questionLanguage);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.Languages].options[profile.userLanguage]), profile.messages.questionLanguage);
     await turnContext.sendActivity(message);
 }
 
@@ -26,7 +25,7 @@ async function validateLanguage(flow, turnContext, profile) {
     if (validation.success) {
         flow.nextQuestion = question.policy;
         profile.userLanguage = convertOption(mapping.Languages,validation.validatedValue, profile.userLanguage);
-        messages = messages_all[profile.userLanguage];
+        profile.messages = messages_all[profile.userLanguage];
     } else {
         flow.nextQuestion = question.language;
         await turnContext.sendActivity(validation.message);        
@@ -35,7 +34,7 @@ async function validateLanguage(flow, turnContext, profile) {
 
 async function questionPolicy(flow, turnContext, profile) {
     flow.nextQuestion = question.validatePolicy;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), messages.questionPolicy);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), profile.messages.questionPolicy);
     message.attachments = [getInternetAttachment()];
     await turnContext.sendActivity(message);
 }
@@ -43,6 +42,7 @@ async function questionPolicy(flow, turnContext, profile) {
 async function validatePolicy(flow, turnContext, profile) {
     let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
+        //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             var value = await getProfile(profile);
             if (value.status == 200) {
@@ -61,13 +61,14 @@ async function validatePolicy(flow, turnContext, profile) {
 
 async function questionUserExist(flow, turnContext, profile) {
     flow.nextQuestion = question.validateUserExist;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), messages.questionUserExists);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), profile.messages.questionUserExists);
     await turnContext.sendActivity(message);
 }
 
 async function validateUserExist(flow, turnContext, profile) {
     let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
+        //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.country;
          } else flow.nextQuestion = question.finishNoSave;
@@ -79,7 +80,7 @@ async function validateUserExist(flow, turnContext, profile) {
 
 async function questionCountry(flow, turnContext, profile) {
     flow.nextQuestion = question.validateCountry;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets["Countries"].options[profile.userLanguage]), messages.questionCountry);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets["Countries"].options[profile.userLanguage]), profile.messages.questionCountry);
     await turnContext.sendActivity(message);
 }
 
@@ -129,7 +130,7 @@ async function questionOrgUnit(flow, turnContext, profile) {
     } 
     var OUs = profile.orgUnitsToChoose;
     var ouToShow = returnFBOptions(getOUItems(OUs), profile.currentFBOptPosition);
-    var text = messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()];
+    var text = profile.messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()];
     let message = MessageFactory.suggestedActions(ouToShow, text);
     await turnContext.sendActivity(message);
 }
@@ -167,7 +168,7 @@ async function oldquestionOrgUnit(flow, turnContext, profile) {
         }
         var OUs = profile.orgUnitsToChoose;
         var ouToShow = returnFBOptions(getOUItems(OUs), profile.currentFBOptPosition);
-        var text = messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()];
+        var text = profile.messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()];
         let message = MessageFactory.suggestedActions(ouToShow, text);
         await turnContext.sendActivity(message);
     }
@@ -176,7 +177,7 @@ async function oldquestionOrgUnit(flow, turnContext, profile) {
 async function questionDonor (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDonor;
     var optionsToShow = returnFBOptions(Object.keys(optionSets[mapping.donor].options[profile.country]), profile.currentFBOptPosition);
-    let message = MessageFactory.suggestedActions(optionsToShow, messages.questionDonor);
+    let message = MessageFactory.suggestedActions(optionsToShow, profile.messages.questionDonor);
     await turnContext.sendActivity(message);
 }
 
@@ -203,7 +204,7 @@ async function saveAndValidateDonor (flow, turnContext, profile)  {
 
 async function questionFirstName (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateFirstName;
-    await turnContext.sendActivity(messages.questionFirstName);
+    await turnContext.sendActivity(profile.messages.questionFirstName);
 }
 
 async function saveAndValidateFirstName (flow, turnContext, profile)  {
@@ -213,7 +214,7 @@ async function saveAndValidateFirstName (flow, turnContext, profile)  {
 
 async function questionLastName (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateLastName;
-    await turnContext.sendActivity(messages.questionLastName);
+    await turnContext.sendActivity(profile.messages.questionLastName);
 }
 
 async function saveAndValidateLastName (flow, turnContext, profile)  {
@@ -223,7 +224,7 @@ async function saveAndValidateLastName (flow, turnContext, profile)  {
 
 async function questionGender (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGender;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.gender].options[profile.userLanguage]), messages.questionGender);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.gender].options[profile.userLanguage]), profile.messages.questionGender);
     await turnContext.sendActivity(message);
 }
 
@@ -240,11 +241,11 @@ async function saveAndValidateGender (flow, turnContext, profile)  {
 
 async function questionDateOfBirth (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateDateOfBirth;
-    await turnContext.sendActivity(messages.questionDateOfBirth);
+    await turnContext.sendActivity(profile.messages.questionDateOfBirth);
 }
 
 async function saveAndValidateDateOfBirth (flow, turnContext, profile)  {
-    let validation = validateDate(turnContext.activity.text);
+    let validation = validateDate(turnContext.activity.text, profile);
     if (validation.success) {
         flow.nextQuestion = question.presentAddress;
         await saveDataValue(profile, mapping.dateOfBirth, turnContext.activity.text);       
@@ -255,7 +256,7 @@ async function saveAndValidateDateOfBirth (flow, turnContext, profile)  {
 }
 async function questionPresentAddress (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidatePresentAddress;
-    await turnContext.sendActivity(messages.questionPresentAddress);
+    await turnContext.sendActivity(profile.messages.questionPresentAddress);
 }
 
 async function saveAndValidatePresentAddress (flow, turnContext, profile)  {
@@ -265,7 +266,7 @@ async function saveAndValidatePresentAddress (flow, turnContext, profile)  {
 
 async function questionPermanentAddress (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidatePermanentAddress;
-    await turnContext.sendActivity(messages.questionPermanentAddress);
+    await turnContext.sendActivity(profile.messages.questionPermanentAddress);
 }
 
 async function saveAndValidatePermanentAddress (flow, turnContext, profile)  {
@@ -275,7 +276,7 @@ async function saveAndValidatePermanentAddress (flow, turnContext, profile)  {
 
 async function questionContactNumber (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateContactNumber;
-    await turnContext.sendActivity(messages.questionPhoneNumber);
+    await turnContext.sendActivity(profile.messages.questionPhoneNumber);
 }
 
 async function saveAndValidateContactNumber (flow, turnContext, profile)  {
@@ -285,13 +286,14 @@ async function saveAndValidateContactNumber (flow, turnContext, profile)  {
 
 async function questionDisability (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDisability;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability].options[profile.userLanguage]), messages.questionDisability);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability].options[profile.userLanguage]), profile.messages.questionDisability);
     await turnContext.sendActivity(message);
 }
 
 async function saveAndValidateDisability (flow, turnContext, profile)  {
     let validation = validateOption(mapping.disability, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
+        //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.disability1;
          } else flow.nextQuestion = question.below21Years;
@@ -304,7 +306,7 @@ async function saveAndValidateDisability (flow, turnContext, profile)  {
 
 async function questionDisability1 (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDisability1;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability1].options[profile.userLanguage]), messages.questionDisability1);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability1].options[profile.userLanguage]), profile.messages.questionDisability1);
     await turnContext.sendActivity(message);
 }
 
@@ -321,7 +323,7 @@ async function saveAndValidateDisability1 (flow, turnContext, profile)  {
 
 async function questionDisability2 (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDisability2;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability2].options[profile.userLanguage]), messages.questionDisability2);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability2].options[profile.userLanguage]), profile.messages.questionDisability2);
     await turnContext.sendActivity(message);
 }
 
@@ -338,7 +340,7 @@ async function saveAndValidateDisability2 (flow, turnContext, profile)  {
 
 async function questionDisability3 (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDisability3;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability3].options[profile.userLanguage]), messages.questionDisability3);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability3].options[profile.userLanguage]), profile.messages.questionDisability3);
     await turnContext.sendActivity(message);
 }
 
@@ -355,7 +357,7 @@ async function saveAndValidateDisability3 (flow, turnContext, profile)  {
 
 async function questionDisability4 (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDisability4;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability4].options[profile.userLanguage]), messages.questionDisability4);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability4].options[profile.userLanguage]), profile.messages.questionDisability4);
     await turnContext.sendActivity(message);
 }
 
@@ -372,7 +374,7 @@ async function saveAndValidateDisability4 (flow, turnContext, profile)  {
 
 async function questionDisability5 (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDisability5;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability5].options[profile.userLanguage]), messages.questionDisability5);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability5].options[profile.userLanguage]), profile.messages.questionDisability5);
     await turnContext.sendActivity(message);
 }
 
@@ -389,7 +391,7 @@ async function saveAndValidateDisability5 (flow, turnContext, profile)  {
 
 async function questionDisability6 (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDisability6;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability6].options[profile.userLanguage]), messages.questionDisability6);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.disability6].options[profile.userLanguage]), profile.messages.questionDisability6);
     await turnContext.sendActivity(message);
 }
 
@@ -406,13 +408,14 @@ async function saveAndValidateDisability6 (flow, turnContext, profile)  {
 
 async function questionBelow21Years(flow, turnContext, profile) {
     flow.nextQuestion = question.validate21Years;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), messages.questionBelow21);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), profile.messages.questionBelow21);
     await turnContext.sendActivity(message);
 }
 
 async function validateBelow21Years(flow, turnContext, profile) {
     let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
+        //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.guardian;
          } else { 
@@ -427,7 +430,7 @@ async function validateBelow21Years(flow, turnContext, profile) {
 
 async function questionGuardian (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardian;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.guardian].options[profile.userLanguage]), messages.questionGuardian);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.guardian].options[profile.userLanguage]), profile.messages.questionGuardian);
     await turnContext.sendActivity(message);
 }
 
@@ -447,7 +450,7 @@ async function saveAndValidateGuardian (flow, turnContext, profile)  {
 
 async function questionGuardianDetails1(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardianDetails1;
-    var text = messages.questionGuardianFirstName + ' (' + profile.guardian + ')';
+    var text = profile.messages.questionGuardianFirstName + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
 
@@ -465,7 +468,7 @@ async function saveAndValidateGuardianDetails1(flow, turnContext, profile) {
 
 async function questionGuardianDetails2(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardianDetails2;
-    var text = messages.questionGuardianMiddleName + ' (' + profile.guardian + ')';
+    var text = profile.messages.questionGuardianMiddleName + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
 
@@ -483,7 +486,7 @@ async function saveAndValidateGuardianDetails2(flow, turnContext, profile) {
 
 async function questionGuardianDetails3(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardianDetails3;
-    var text = messages.questionGuardianLastName + ' (' + profile.guardian + ')';
+    var text = profile.messages.questionGuardianLastName + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
 
@@ -501,7 +504,7 @@ async function saveAndValidateGuardianDetails3(flow, turnContext, profile) {
 
 async function questionGuardianDetails4(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardianDetails4;
-    var text = messages.questionGuardianConctact + ' (' + profile.guardian + ')';
+    var text = profile.messages.questionGuardianConctact + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
 
@@ -519,7 +522,7 @@ async function saveAndValidateGuardianDetails4(flow, turnContext, profile) {
 
 async function questionGuardianDetails5(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardianDetails5;
-    var text = messages.questionGuardianOccupation + ' (' + profile.guardian + ')';
+    var text = profile.messages.questionGuardianOccupation + ' (' + profile.guardian + ')';
     await turnContext.sendActivity(text);
 }
 
@@ -537,7 +540,7 @@ async function saveAndValidateGuardianDetails5(flow, turnContext, profile) {
 
 async function questionGuardianDetails6(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardianDetails6;
-    var text = messages.questionGuardianRelationship;
+    var text = profile.messages.questionGuardianRelationship;
     await turnContext.sendActivity(text);
 }
 
@@ -548,7 +551,7 @@ async function saveAndValidateGuardianDetails6(flow, turnContext, profile) {
 
 async function questionMaritalStatus (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateMaritalStatus;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.maritalStatus].options[profile.userLanguage]), messages.questionMaritalStatus);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.maritalStatus].options[profile.userLanguage]), profile.messages.questionMaritalStatus);
     await turnContext.sendActivity(message);
 }
 
@@ -571,7 +574,7 @@ async function saveAndValidateMaritalStatus (flow, turnContext, profile)  {
 
 async function questionPartnerName(flow, turnContext) {
     flow.nextQuestion = question.saveAndValidatePartnerName;
-    await turnContext.sendActivity(messages.questionPartnerName);
+    await turnContext.sendActivity(profile.messages.questionPartnerName);
 }
 
 async function saveAndValidatePartnerName(flow, turnContext, profile) {
@@ -581,7 +584,7 @@ async function saveAndValidatePartnerName(flow, turnContext, profile) {
 
 async function questionPartnerOccupation(flow, turnContext) {
     flow.nextQuestion = question.saveAndValidatePartnerOccupation;
-    await turnContext.sendActivity(messages.questionPartnerOccupation);
+    await turnContext.sendActivity(profile.messages.questionPartnerOccupation);
 }
 
 async function saveAndValidatePartnerOccupation(flow, turnContext, profile) {
@@ -591,7 +594,7 @@ async function saveAndValidatePartnerOccupation(flow, turnContext, profile) {
 
 async function questionPartnerContactNumber(flow, turnContext) {
     flow.nextQuestion = question.saveAndValidatePartnerContactNumber;
-    await turnContext.sendActivity(messages.questionPartnerContactNumber);
+    await turnContext.sendActivity(profile.messages.questionPartnerContactNumber);
 }
 
 async function saveAndValidatePartnerContactNumber(flow, turnContext, profile) {
@@ -601,13 +604,14 @@ async function saveAndValidatePartnerContactNumber(flow, turnContext, profile) {
 
 async function questionChildren(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateChildren;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.children].options[profile.userLanguage]), messages.questionChildren);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.children].options[profile.userLanguage]), profile.messages.questionChildren);
     await turnContext.sendActivity(message);
 }
 
 async function saveAndValidateChildren (flow, turnContext, profile)  {
     let validation = validateOption(mapping.children, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
+        //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.numberChildren;
          } else flow.nextQuestion = question.studying;
@@ -620,7 +624,7 @@ async function saveAndValidateChildren (flow, turnContext, profile)  {
 
 async function questionNumberChildren(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateNumberChildren;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.numberChildren].options[profile.userLanguage]), messages.questionNumberChildren);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.numberChildren].options[profile.userLanguage]), profile.messages.questionNumberChildren);
     await turnContext.sendActivity(message);
 }
 
@@ -640,7 +644,7 @@ async function saveAndValidateNumberChildren (flow, turnContext, profile)  {
 
 async function questionChildrenAge(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateChildrenAge;
-    var text = messages.questionChildrenAge + profile.child;
+    var text = profile.messages.questionChildrenAge + profile.child;
     await turnContext.sendActivity(text);
 }
 
@@ -659,7 +663,7 @@ async function saveAndValidateChildrenAge(flow, turnContext, profile) {
         case 10: {dataElement = mapping.child10Age; break;} 
     }
 
-    let validation = validateAge(turnContext.activity.text);
+    let validation = validateAge(turnContext.activity.text, profile);
     if (validation.success) {
         await saveDataValue(profile, dataElement, turnContext.activity.text);
         flow.nextQuestion = question.childrenGender;
@@ -672,7 +676,7 @@ async function saveAndValidateChildrenAge(flow, turnContext, profile) {
 
 async function questionChildrenGender(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateChildrenGender;
-    var text = messages.questionChildrenGender + profile.child;
+    var text = profile.messages.questionChildrenGender + profile.child;
     let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.gender].options[profile.userLanguage]), text);
     await turnContext.sendActivity(message);
 }
@@ -706,7 +710,7 @@ async function saveAndValidateChildrenGender(flow, turnContext, profile) {
 
 async function questionStudying(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateStudying;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.studying].options[profile.userLanguage]), messages.questionStudying);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.studying].options[profile.userLanguage]), profile.messages.questionStudying);
     await turnContext.sendActivity(message);
 }
 
@@ -726,7 +730,7 @@ async function saveAndValidateStudying (flow, turnContext, profile)  {
 
 async function questionEmployed(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateEmployed;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.employed].options[profile.userLanguage]), messages.questionEmployed);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.employed].options[profile.userLanguage]), profile.messages.questionEmployed);
     await turnContext.sendActivity(message);
 }
 
@@ -743,7 +747,7 @@ async function saveAndValidateEmployed (flow, turnContext, profile)  {
 
 async function questionInterests (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateInterests;
-    await turnContext.sendActivity(messages.questionEducation1);
+    await turnContext.sendActivity(profile.messages.questionEducation1);
 }
 
 async function saveAndValidateInterests (flow, turnContext, profile)  {
@@ -753,7 +757,7 @@ async function saveAndValidateInterests (flow, turnContext, profile)  {
 
 async function questionHighestEducation (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateHighestEducation;
-    await turnContext.sendActivity(messages.questionEducation2);
+    await turnContext.sendActivity(profile.messages.questionEducation2);
 }
 
 async function saveAndValidateHighestEducation (flow, turnContext, profile)  {
@@ -763,11 +767,11 @@ async function saveAndValidateHighestEducation (flow, turnContext, profile)  {
 
 async function questionYearGraduated (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateYearGraduated;
-    await turnContext.sendActivity(messages.questionEducation3);
+    await turnContext.sendActivity(profile.messages.questionEducation3);
 }
 
 async function saveAndValidateYearGraduated (flow, turnContext, profile)  {
-    let validation = validatePositiveInteger(turnContext.activity.text);
+    let validation = validatePositiveInteger(turnContext.activity.text, profile);
     if (validation.success) {
         if (profile.studying == 'No') {
             flow.nextQuestion = question.stopEducation;
@@ -781,7 +785,7 @@ async function saveAndValidateYearGraduated (flow, turnContext, profile)  {
 
 async function questionStopEducation (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateStopEducation;
-    await turnContext.sendActivity(messages.questionEducation4);
+    await turnContext.sendActivity(profile.messages.questionEducation4);
 }
 
 async function saveAndValidateStopEducation (flow, turnContext, profile)  {
@@ -791,13 +795,14 @@ async function saveAndValidateStopEducation (flow, turnContext, profile)  {
 
 async function questionMemberOrganisation (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateMemberOrganisation;
-    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.memberOrganisation].options[profile.userLanguage]), messages.questionEducation5);
+    let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.memberOrganisation].options[profile.userLanguage]), profile.messages.questionEducation5);
     await turnContext.sendActivity(message);
 }
 
 async function saveAndValidateMemberOrganisation (flow, turnContext, profile)  {
     let validation = validateOption(mapping.memberOrganisation, profile.userLanguage, turnContext.activity.text);
     if (validation.success) {
+        //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.organisationName;
          } else flow.nextQuestion = question.recreations;
@@ -810,7 +815,7 @@ async function saveAndValidateMemberOrganisation (flow, turnContext, profile)  {
 
 async function questionOrganisationName (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateOrganisationName;
-    await turnContext.sendActivity(messages.questionEducation6);
+    await turnContext.sendActivity(profile.messages.questionEducation6);
 }
 
 async function saveAndValidateOrganisationName (flow, turnContext, profile)  {
@@ -820,7 +825,7 @@ async function saveAndValidateOrganisationName (flow, turnContext, profile)  {
 
 async function questionPosition (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidatePosition;
-    await turnContext.sendActivity(messages.questionEducation7);
+    await turnContext.sendActivity(profile.messages.questionEducation7);
 }
 
 async function saveAndValidatePosition (flow, turnContext, profile)  {
@@ -830,11 +835,11 @@ async function saveAndValidatePosition (flow, turnContext, profile)  {
 
 async function questionYearsMembership (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateYearsMembership;
-    await turnContext.sendActivity(messages.questionEducation8);
+    await turnContext.sendActivity(profile.messages.questionEducation8);
 }
 
 async function saveAndValidateYearsMembership (flow, turnContext, profile)  {
-    let validation = validatePositiveInteger(turnContext.activity.text);
+    let validation = validatePositiveInteger(turnContext.activity.text, profile);
     if (validation.success) {
         flow.nextQuestion = question.recreations;
         result = await saveDataValue(profile, mapping.yearsMembership, turnContext.activity.text);    
@@ -847,7 +852,7 @@ async function saveAndValidateYearsMembership (flow, turnContext, profile)  {
 
 async function questionRecreations (flow, turnContext)  {
     flow.nextQuestion = question.saveAndValidateRecreations;
-    await turnContext.sendActivity(messages.questionEducation9);
+    await turnContext.sendActivity(profile.messages.questionEducation9);
 }
 
 async function saveAndValidateRecreations (flow, turnContext, profile)  {
@@ -857,12 +862,12 @@ async function saveAndValidateRecreations (flow, turnContext, profile)  {
 
 async function finish (flow, turnContext, profile)  {
     await sendToDhis2(profile);
-    await turnContext.sendActivity(messages.thankyou);
+    await turnContext.sendActivity(profile.messages.thankyou);
     flow.nextQuestion = question.welcome;
 }
 
 async function finishNoSave (flow, turnContext)  {
-    await turnContext.sendActivity(messages.thankyouNoSave);
+    await turnContext.sendActivity(profile.messages.thankyouNoSave);
     flow.nextQuestion = question.welcome;
 }
 
@@ -871,13 +876,13 @@ async function initProfile(profile, turnContext, _endpointConfig) {
     for (var member in profile) delete profile[member];
 
     //Set the language and locale of the user
-    profile.userLanguage = "en" //TODO. change this to allow multiple languages
+    profile.userLanguage = "en"; 
+    profile.messages = messages_all[profile.userLanguage];
     profile.userOrgUnitLevel = 0;
     profile.currentFBOptPosition = 0;
-    endpointConfig = _endpointConfig
+    endpointConfig = _endpointConfig;
     //profile.country = 'IDN';
-    //profile.userOrgUnit = orgUnitLevels[profile.country].root;
-    messages = messages_all[profile.userLanguage];
+    //profile.userOrgUnit = orgUnitLevels[profile.country].root;    
 
     // Set Facebook ID
     var facebookID = turnContext.activity.from.id;
@@ -900,11 +905,11 @@ function validateOption(optionSetUID, userLanguage, optionToValidate) {
     if (Object.keys(validOptionsDict).includes(optionToValidateCleaned)) {
         return { success: true, validatedValue: validOptionsDict[optionToValidateCleaned] };
     } else {
-        return { success: false, message: messages.InvalidOption };
+        return { success: false, message: profile.messages.InvalidOption };
     }
 }
 
-function validateDate(potentialDate) {
+function validateDate(potentialDate, profile) {
     try {
 
         // check for the pattern
@@ -952,13 +957,13 @@ function validateDate(potentialDate) {
     } catch (error) {
         return {
             success: false,
-            message: messages.InvalidDate
+            message: profile.messages.InvalidDate
         };
     }
 }
 
 
-function validatePositiveInteger(potentialPositiveInteger) {
+function validatePositiveInteger(potentialPositiveInteger, profile) {
     try {
         if (!potentialPositiveInteger.match(/^[+]?[0-9]+$/g))
             throw (1);
@@ -966,13 +971,13 @@ function validatePositiveInteger(potentialPositiveInteger) {
         if (!isNaN(potentialPositiveInteger) && n >= 0) {
             return { success: true, validatedValue: n };
         }
-        return { success: false, message: messages.InvalidPositiveOrZeroInteger };
+        return { success: false, message: profile.messages.InvalidPositiveOrZeroInteger };
     } catch (error) {
-        return { success: false, message: messages.InvalidPositiveOrZeroInteger };
+        return { success: false, message: profile.messages.InvalidPositiveOrZeroInteger };
     }
 }
 
-function validateAge(potentialAge) {
+function validateAge(potentialAge, profile) {
     try {
         if (!potentialAge.match(/^[0-9]+$/g))
             throw (1);
@@ -980,9 +985,9 @@ function validateAge(potentialAge) {
         if (!isNaN(potentialAge) && age >= 0 && age <= 200) {
             return { success: true, validatedValue: age };
         }
-        return { success: false, message: messages.InvalidAge };
+        return { success: false, message: profile.messages.InvalidAge };
     } catch (error) {
-        return { success: false, message: messages.InvalidAge };
+        return { success: false, message: profile.messages.InvalidAge };
     }
 }
 
