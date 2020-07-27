@@ -1118,6 +1118,7 @@ async function saveProfile(profile) {
         console.log('Authenticated');
     }).catch(function (error) {
         console.log('Error on Authentication');
+        console.log(error);
     });
 }
 
@@ -1135,6 +1136,7 @@ async function saveOrgUnit(profile) {
         console.log('Authenticated');
     }).catch(function (error) {
         console.log('Error on Authentication');
+        console.log(error);
     });
 }
 
@@ -1154,6 +1156,7 @@ async function saveDataValue(profile, uid, value) {
         console.log('Authenticated');
     }).catch(function (error) {
         console.log('Error on Authentication');
+        console.log(error);
     });
 }
 
@@ -1169,6 +1172,7 @@ async function sendToDhis2(profile) {
         console.log('Authenticated');
     }).catch(function (error) {
         console.log('Error on Authentication');
+        console.log(error);
     });
 }
 
