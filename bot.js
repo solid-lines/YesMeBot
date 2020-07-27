@@ -49,13 +49,13 @@ class YesMeBot extends ActivityHandler {
             // Get the state properties from the turn context.
             const flow = await this.conversationFlow.get(turnContext, { nextQuestion: question.welcome });
             const profile = await this.userProfileAccessor.get(turnContext, {});
-    
+
             await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
-    
+
             // Update state and save changes.
             await this.conversationFlow.set(turnContext, flow);
             await this.conversationState.saveChanges(turnContext);
-    
+
             await this.userProfileAccessor.set(turnContext, profile);
             await this.userState.saveChanges(turnContext);
         }
@@ -64,8 +64,8 @@ class YesMeBot extends ActivityHandler {
     static async fillOutUserRegistration(flow, profile, turnContext) {
 
         switch (flow.nextQuestion) {
-            
-            case question.welcome:{
+
+            case question.welcome: {
                 await workflow.initProfile(flow, profile, turnContext, endpointConfig);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
@@ -73,341 +73,341 @@ class YesMeBot extends ActivityHandler {
 
             case question.language: {
                 await workflow.questionLanguage(flow, turnContext, profile);
-                break;   
+                break;
             }
 
             case question.validateLanguage: {
                 await workflow.validateLanguage(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
-                break;   
+                break;
             }
 
-            case question.policy:{
+            case question.policy: {
                 await workflow.questionPolicy(flow, turnContext, profile);
                 break;
             }
 
-            case question.validatePolicy:{
+            case question.validatePolicy: {
                 await workflow.validatePolicy(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.userExist:{
+            case question.userExist: {
                 await workflow.questionUserExist(flow, turnContext, profile);
                 break;
             }
 
-            case question.validateUserExist:{
+            case question.validateUserExist: {
                 await workflow.validateUserExist(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.country:{
+            case question.country: {
                 await workflow.questionCountry(flow, turnContext, profile);
                 break;
             }
 
-            case question.validateCountry:{
+            case question.validateCountry: {
                 await workflow.validateCountry(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.orgunit:{
+            case question.orgunit: {
                 await workflow.questionOrgUnit(flow, turnContext, profile);
                 if (flow.nextQuestion == question.donor) {
                     await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 }
                 break;
             }
- 
-            case question.donor:{
+
+            case question.donor: {
                 await workflow.questionDonor(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDonor:{
+            case question.saveAndValidateDonor: {
                 await workflow.saveAndValidateDonor(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.firstName:{
+            case question.firstName: {
                 await workflow.questionFirstName(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateFirstName:{
+            case question.saveAndValidateFirstName: {
                 await workflow.saveAndValidateFirstName(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.lastName:{
+            case question.lastName: {
                 await workflow.questionLastName(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateLastName:{
+            case question.saveAndValidateLastName: {
                 await workflow.saveAndValidateLastName(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.gender:{
+            case question.gender: {
                 await workflow.questionGender(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGender:{
+            case question.saveAndValidateGender: {
                 await workflow.saveAndValidateGender(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
-                break;                
+                break;
             }
 
-            case question.dateOfBirth:{
+            case question.dateOfBirth: {
                 await workflow.questionDateOfBirth(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDateOfBirth:{
+            case question.saveAndValidateDateOfBirth: {
                 await workflow.saveAndValidateDateOfBirth(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.presentAddress:{
+            case question.presentAddress: {
                 await workflow.questionPresentAddress(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidatePresentAddress:{
+            case question.saveAndValidatePresentAddress: {
                 await workflow.saveAndValidatePresentAddress(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.permanentAddress:{
+            case question.permanentAddress: {
                 await workflow.questionPermanentAddress(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidatePermanentAddress:{
+            case question.saveAndValidatePermanentAddress: {
                 await workflow.saveAndValidatePermanentAddress(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.contactNumber:{
+            case question.contactNumber: {
                 await workflow.questionContactNumber(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateContactNumber:{
+            case question.saveAndValidateContactNumber: {
                 await workflow.saveAndValidateContactNumber(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.disability:{
+            case question.disability: {
                 await workflow.questionDisability(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDisability:{
+            case question.saveAndValidateDisability: {
                 await workflow.saveAndValidateDisability(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.disability1:{
+            case question.disability1: {
                 await workflow.questionDisability1(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDisability1:{
+            case question.saveAndValidateDisability1: {
                 await workflow.saveAndValidateDisability1(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            case question.disability2:{
+            case question.disability2: {
                 await workflow.questionDisability2(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDisability2:{
+            case question.saveAndValidateDisability2: {
                 await workflow.saveAndValidateDisability2(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            case question.disability3:{
+            case question.disability3: {
                 await workflow.questionDisability3(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDisability3:{
+            case question.saveAndValidateDisability3: {
                 await workflow.saveAndValidateDisability3(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            case question.disability4:{
+            case question.disability4: {
                 await workflow.questionDisability4(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDisability4:{
+            case question.saveAndValidateDisability4: {
                 await workflow.saveAndValidateDisability4(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            case question.disability5:{
+            case question.disability5: {
                 await workflow.questionDisability5(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDisability5:{
+            case question.saveAndValidateDisability5: {
                 await workflow.saveAndValidateDisability5(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.disability6:{
+            case question.disability6: {
                 await workflow.questionDisability6(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateDisability6:{
+            case question.saveAndValidateDisability6: {
                 await workflow.saveAndValidateDisability6(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.below21Years:{
+            case question.below21Years: {
                 await workflow.questionBelow21Years(flow, turnContext, profile);
                 break;
             }
 
-            case question.validate21Years:{
+            case question.validate21Years: {
                 await workflow.validateBelow21Years(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.guardian:{
+            case question.guardian: {
                 await workflow.questionGuardian(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGuardian:{
+            case question.saveAndValidateGuardian: {
                 await workflow.saveAndValidateGuardian(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.guardianDetails1:{
+            case question.guardianDetails1: {
                 await workflow.questionGuardianDetails1(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGuardianDetails1:{
+            case question.saveAndValidateGuardianDetails1: {
                 await workflow.saveAndValidateGuardianDetails1(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.guardianDetails2:{
+            case question.guardianDetails2: {
                 await workflow.questionGuardianDetails2(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGuardianDetails2:{
+            case question.saveAndValidateGuardianDetails2: {
                 await workflow.saveAndValidateGuardianDetails2(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            case question.guardianDetails3:{
+            case question.guardianDetails3: {
                 await workflow.questionGuardianDetails3(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGuardianDetails3:{
+            case question.saveAndValidateGuardianDetails3: {
                 await workflow.saveAndValidateGuardianDetails3(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            case question.guardianDetails4:{
+            case question.guardianDetails4: {
                 await workflow.questionGuardianDetails4(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGuardianDetails4:{
+            case question.saveAndValidateGuardianDetails4: {
                 await workflow.saveAndValidateGuardianDetails4(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            case question.guardianDetails5:{
+            case question.guardianDetails5: {
                 await workflow.questionGuardianDetails5(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGuardianDetails5:{
+            case question.saveAndValidateGuardianDetails5: {
                 await workflow.saveAndValidateGuardianDetails5(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.guardianDetails6:{
+            case question.guardianDetails6: {
                 await workflow.questionGuardianDetails6(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateGuardianDetails6:{
+            case question.saveAndValidateGuardianDetails6: {
                 await workflow.saveAndValidateGuardianDetails6(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.maritalStatus:{
+            case question.maritalStatus: {
                 await workflow.questionMaritalStatus(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidateMaritalStatus:{
+            case question.saveAndValidateMaritalStatus: {
                 await workflow.saveAndValidateMaritalStatus(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.partnerName:{
+            case question.partnerName: {
                 await workflow.questionPartnerName(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidatePartnerName:{
+            case question.saveAndValidatePartnerName: {
                 await workflow.saveAndValidatePartnerName(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.partnerOccupation:{
+            case question.partnerOccupation: {
                 await workflow.questionPartnerOccupation(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidatePartnerOccupation:{
+            case question.saveAndValidatePartnerOccupation: {
                 await workflow.saveAndValidatePartnerOccupation(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
-            case question.partnerContactNumber:{
+            case question.partnerContactNumber: {
                 await workflow.questionPartnerContactNumber(flow, turnContext, profile);
                 break;
             }
 
-            case question.saveAndValidatePartnerContactNumber:{
+            case question.saveAndValidatePartnerContactNumber: {
                 await workflow.saveAndValidatePartnerContactNumber(flow, turnContext, profile);
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
@@ -522,7 +522,7 @@ class YesMeBot extends ActivityHandler {
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            
+
             case question.memberOrganisation: {
                 await workflow.questionMemberOrganisation(flow, turnContext, profile);
                 break;
@@ -577,18 +577,18 @@ class YesMeBot extends ActivityHandler {
                 await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
-            
-            case question.finish:{
+
+            case question.finish: {
                 await workflow.finish(flow, turnContext, profile);
                 break;
             }
 
-            case question.finishNoSave:{
+            case question.finishNoSave: {
                 await workflow.finishNoSave(flow, turnContext, profile);
                 break;
             }
 
-        }        
+        }
 
     }
 }
