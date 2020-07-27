@@ -1034,7 +1034,7 @@ function getInternetAttachment() {
 
 async function saveProfile(profile) {
 
-    var session_url = 'http://13.251.45.248:4455/profile/'+profile.facebookID;
+    var session_url = 'http://'+endpointConfig.middlewareHost+':'+endpointConfig.middlewarePort+'/profile/'+profile.facebookID;
     
     return axios.post(session_url, {}, {
         auth: {
@@ -1050,7 +1050,7 @@ async function saveProfile(profile) {
 
 async function saveOrgUnit(profile) {
 
-    var session_url = 'http://13.251.45.248:4455/profile/'+profile.facebookID + '/ou_uid/' + profile.userOrgUnit;
+    var session_url = 'http://'+endpointConfig.middlewareHost+':'+endpointConfig.middlewarePort+'/profile/'+profile.facebookID + '/ou_uid/' + profile.userOrgUnit;
     console.log(session_url);
     
     axios.post(session_url, {}, {
@@ -1066,7 +1066,7 @@ async function saveOrgUnit(profile) {
 }
 
 async function saveDataValue(profile, uid, value) {
-    var session_url = 'http://13.251.45.248:4455/profile/'+profile.facebookID + '/dataCollectedFromBot';
+    var session_url = 'http://'+endpointConfig.middlewareHost+':'+endpointConfig.middlewarePort+'/profile/'+profile.facebookID + '/dataCollectedFromBot';
     var payload = {};
 
     payload[uid] = value;
@@ -1085,7 +1085,7 @@ async function saveDataValue(profile, uid, value) {
 }
 
 async function sendToDhis2(profile) {
-    var session_url = 'http://13.251.45.248:4455/sendToDhis2/'+profile.facebookID;
+    var session_url = 'http://'+endpointConfig.middlewareHost+':'+endpointConfig.middlewarePort+'/sendToDhis2/'+profile.facebookID;
 
     axios.post(session_url, {}, {
         auth: {
@@ -1100,7 +1100,7 @@ async function sendToDhis2(profile) {
 }
 
 async function getChilrenOU(profile) {
-    var session_url = 'http://13.251.45.248:4455/getChildrenOU/'+profile.userOrgUnit;
+    var session_url = 'http://'+endpointConfig.middlewareHost+':'+endpointConfig.middlewarePort+'/getChildrenOU/'+profile.userOrgUnit;
 
     try {
         return await axios.get(session_url,{
@@ -1115,7 +1115,7 @@ async function getChilrenOU(profile) {
 }
 
 async function getProfile(profile) {
-    var session_url = 'http://13.251.45.248:4455/profile/'+profile.facebookID;
+    var session_url = 'http://'+endpointConfig.middlewareHost+':'+endpointConfig.middlewarePort+'/profile/'+profile.facebookID;
 
     console.log (session_url);
 
