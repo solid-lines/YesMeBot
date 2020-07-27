@@ -144,7 +144,7 @@ class YesMeBot extends ActivityHandler {
             }
 
             case question.lastName:{
-                await workflow.questionLastName(flow, turnContext);
+                await workflow.questionLastName(flow, turnContext, profile);
                 break;
             }
 
@@ -166,7 +166,7 @@ class YesMeBot extends ActivityHandler {
             }
 
             case question.dateOfBirth:{
-                await workflow.questionDateOfBirth(flow, turnContext);
+                await workflow.questionDateOfBirth(flow, turnContext, profile);
                 break;
             }
 
@@ -177,7 +177,7 @@ class YesMeBot extends ActivityHandler {
             }
 
             case question.presentAddress:{
-                await workflow.questionPresentAddress(flow, turnContext);
+                await workflow.questionPresentAddress(flow, turnContext, profile);
                 break;
             }
 
@@ -188,7 +188,7 @@ class YesMeBot extends ActivityHandler {
             }
 
             case question.permanentAddress:{
-                await workflow.questionPermanentAddress(flow, turnContext);
+                await workflow.questionPermanentAddress(flow, turnContext, profile);
                 break;
             }
 
@@ -199,7 +199,7 @@ class YesMeBot extends ActivityHandler {
             }
 
             case question.contactNumber:{
-                await workflow.questionContactNumber(flow, turnContext);
+                await workflow.questionContactNumber(flow, turnContext, profile);
                 break;
             }
 

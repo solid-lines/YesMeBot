@@ -202,7 +202,7 @@ async function saveAndValidateDonor (flow, turnContext, profile)  {
     }
 }
 
-async function questionFirstName (flow, turnContext)  {
+async function questionFirstName (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateFirstName;
     await turnContext.sendActivity(profile.messages.questionFirstName);
 }
@@ -212,7 +212,7 @@ async function saveAndValidateFirstName (flow, turnContext, profile)  {
     result = await saveDataValue(profile, mapping.firstName, turnContext.activity.text);
 }
 
-async function questionLastName (flow, turnContext)  {
+async function questionLastName (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateLastName;
     await turnContext.sendActivity(profile.messages.questionLastName);
 }
@@ -239,7 +239,7 @@ async function saveAndValidateGender (flow, turnContext, profile)  {
     }
 }
 
-async function questionDateOfBirth (flow, turnContext)  {
+async function questionDateOfBirth (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateDateOfBirth;
     await turnContext.sendActivity(profile.messages.questionDateOfBirth);
 }
@@ -254,7 +254,7 @@ async function saveAndValidateDateOfBirth (flow, turnContext, profile)  {
         await turnContext.sendActivity(validation.message);
     }
 }
-async function questionPresentAddress (flow, turnContext)  {
+async function questionPresentAddress (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidatePresentAddress;
     await turnContext.sendActivity(profile.messages.questionPresentAddress);
 }
@@ -264,7 +264,7 @@ async function saveAndValidatePresentAddress (flow, turnContext, profile)  {
     await saveDataValue(profile, mapping.presentAddress, turnContext.activity.text);
 }
 
-async function questionPermanentAddress (flow, turnContext)  {
+async function questionPermanentAddress (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidatePermanentAddress;
     await turnContext.sendActivity(profile.messages.questionPermanentAddress);
 }
@@ -274,7 +274,7 @@ async function saveAndValidatePermanentAddress (flow, turnContext, profile)  {
     await saveDataValue(profile, mapping.permanentAddress, turnContext.activity.text);
 }
 
-async function questionContactNumber (flow, turnContext)  {
+async function questionContactNumber (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateContactNumber;
     await turnContext.sendActivity(profile.messages.questionPhoneNumber);
 }
@@ -572,7 +572,7 @@ async function saveAndValidateMaritalStatus (flow, turnContext, profile)  {
     }
 }
 
-async function questionPartnerName(flow, turnContext) {
+async function questionPartnerName(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidatePartnerName;
     await turnContext.sendActivity(profile.messages.questionPartnerName);
 }
@@ -582,7 +582,7 @@ async function saveAndValidatePartnerName(flow, turnContext, profile) {
     await saveDataValue(profile, mapping.partnerName, turnContext.activity.text);
 }
 
-async function questionPartnerOccupation(flow, turnContext) {
+async function questionPartnerOccupation(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidatePartnerOccupation;
     await turnContext.sendActivity(profile.messages.questionPartnerOccupation);
 }
@@ -592,7 +592,7 @@ async function saveAndValidatePartnerOccupation(flow, turnContext, profile) {
     await saveDataValue(profile, mapping.partnerOccupation, turnContext.activity.text);
 }
 
-async function questionPartnerContactNumber(flow, turnContext) {
+async function questionPartnerContactNumber(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidatePartnerContactNumber;
     await turnContext.sendActivity(profile.messages.questionPartnerContactNumber);
 }
@@ -745,7 +745,7 @@ async function saveAndValidateEmployed (flow, turnContext, profile)  {
     }
 }
 
-async function questionInterests (flow, turnContext)  {
+async function questionInterests (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateInterests;
     await turnContext.sendActivity(profile.messages.questionEducation1);
 }
@@ -755,7 +755,7 @@ async function saveAndValidateInterests (flow, turnContext, profile)  {
     result = await saveDataValue(profile, mapping.interests, turnContext.activity.text);
 }
 
-async function questionHighestEducation (flow, turnContext)  {
+async function questionHighestEducation (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateHighestEducation;
     await turnContext.sendActivity(profile.messages.questionEducation2);
 }
@@ -765,7 +765,7 @@ async function saveAndValidateHighestEducation (flow, turnContext, profile)  {
     result = await saveDataValue(profile, mapping.highestEducation, turnContext.activity.text);
 }
 
-async function questionYearGraduated (flow, turnContext)  {
+async function questionYearGraduated (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateYearGraduated;
     await turnContext.sendActivity(profile.messages.questionEducation3);
 }
@@ -773,6 +773,7 @@ async function questionYearGraduated (flow, turnContext)  {
 async function saveAndValidateYearGraduated (flow, turnContext, profile)  {
     let validation = validatePositiveInteger(turnContext.activity.text, profile);
     if (validation.success) {
+        //TODO Review language
         if (profile.studying == 'No') {
             flow.nextQuestion = question.stopEducation;
         } else {flow.nextQuestion = question.memberOrganisation;}
@@ -783,7 +784,7 @@ async function saveAndValidateYearGraduated (flow, turnContext, profile)  {
     }
 }
 
-async function questionStopEducation (flow, turnContext)  {
+async function questionStopEducation (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateStopEducation;
     await turnContext.sendActivity(profile.messages.questionEducation4);
 }
@@ -813,7 +814,7 @@ async function saveAndValidateMemberOrganisation (flow, turnContext, profile)  {
     }
 }
 
-async function questionOrganisationName (flow, turnContext)  {
+async function questionOrganisationName (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateOrganisationName;
     await turnContext.sendActivity(profile.messages.questionEducation6);
 }
@@ -823,7 +824,7 @@ async function saveAndValidateOrganisationName (flow, turnContext, profile)  {
     result = await saveDataValue(profile, mapping.organizationName, turnContext.activity.text);
 }
 
-async function questionPosition (flow, turnContext)  {
+async function questionPosition (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidatePosition;
     await turnContext.sendActivity(profile.messages.questionEducation7);
 }
@@ -833,7 +834,7 @@ async function saveAndValidatePosition (flow, turnContext, profile)  {
     result = await saveDataValue(profile, mapping.position, turnContext.activity.text);
 }
 
-async function questionYearsMembership (flow, turnContext)  {
+async function questionYearsMembership (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateYearsMembership;
     await turnContext.sendActivity(profile.messages.questionEducation8);
 }
@@ -850,7 +851,7 @@ async function saveAndValidateYearsMembership (flow, turnContext, profile)  {
 
 }
 
-async function questionRecreations (flow, turnContext)  {
+async function questionRecreations (flow, turnContext, profile)  {
     flow.nextQuestion = question.saveAndValidateRecreations;
     await turnContext.sendActivity(profile.messages.questionEducation9);
 }
@@ -866,7 +867,7 @@ async function finish (flow, turnContext, profile)  {
     flow.nextQuestion = question.welcome;
 }
 
-async function finishNoSave (flow, turnContext)  {
+async function finishNoSave (flow, turnContext, profile)  {
     await turnContext.sendActivity(profile.messages.thankyouNoSave);
     flow.nextQuestion = question.welcome;
 }
