@@ -54,7 +54,7 @@
     "idn":{
         "Welcome": "Welcome to the YesMe regiter bot!",
         "questionLanguage": "Which language you prefer?",
-        "questionCountry": "What is you country?",
+        "questionCountry": "What is you country? (IDN)",
         "questionPolicy": "Please see attached Chatbot Data Privacy Policy. Kindly click YES if you agree with our data privacy policy.",
         "questionUserExists": "You are already registered, do you want to modify your data?",
         "questionOrgUnit": "What is your ",
