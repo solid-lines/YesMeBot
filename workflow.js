@@ -21,7 +21,7 @@ async function questionLanguage(flow, turnContext, profile) {
 }
 
 async function validateLanguage(flow, turnContext, profile) {
-    let validation = validateOption(mapping.Languages, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.Languages, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.policy;
         profile.userLanguage = convertOption(mapping.Languages,validation.validatedValue, profile.userLanguage);
@@ -40,7 +40,7 @@ async function questionPolicy(flow, turnContext, profile) {
 }
 
 async function validatePolicy(flow, turnContext, profile) {
-    let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
@@ -66,7 +66,7 @@ async function questionUserExist(flow, turnContext, profile) {
 }
 
 async function validateUserExist(flow, turnContext, profile) {
-    let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
@@ -85,7 +85,7 @@ async function questionCountry(flow, turnContext, profile) {
 }
 
 async function validateCountry(flow, turnContext, profile) {
-    let validation = validateOption(mapping.Countries, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.Countries, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.orgunit;
         profile.country = convertOption(mapping.Countries,validation.validatedValue, profile.userLanguage)
@@ -182,7 +182,8 @@ async function questionDonor (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDonor (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.donor, profile.country, turnContext.activity.text);
+    //TODO Review profile.country en vez de profile.language
+    let validation = validateOption(mapping.donor, profile.country, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.firstName;
         await saveDataValue(profile, mapping.donor, convertOption(mapping.donor,validation.validatedValue, profile.country));
@@ -229,7 +230,7 @@ async function questionGender (flow, turnContext, profile) {
 }
 
 async function saveAndValidateGender (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.gender, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.gender, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.dateOfBirth;
         await saveDataValue(profile, mapping.gender, convertOption(mapping.gender,validation.validatedValue, profile.userLanguage));
@@ -291,7 +292,7 @@ async function questionDisability (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDisability (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.disability, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.disability, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
@@ -311,7 +312,7 @@ async function questionDisability1 (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDisability1 (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.disability1, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.disability1, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.disability2;
         await saveDataValue(profile, mapping.disability1, convertOption(mapping.disability1,validation.validatedValue, profile.userLanguage));
@@ -328,7 +329,7 @@ async function questionDisability2 (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDisability2 (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.disability2, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.disability2, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.disability3;
         await saveDataValue(profile, mapping.disability2, convertOption(mapping.disability2,validation.validatedValue, profile.userLanguage));
@@ -345,7 +346,7 @@ async function questionDisability3 (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDisability3 (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.disability3, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.disability3, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.disability4;
         await saveDataValue(profile, mapping.disability3, convertOption(mapping.disability3,validation.validatedValue, profile.userLanguage));
@@ -362,7 +363,7 @@ async function questionDisability4 (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDisability4 (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.disability4, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.disability4, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.disability5;
         await saveDataValue(profile, mapping.disability4, convertOption(mapping.disability4,validation.validatedValue, profile.userLanguage));
@@ -379,7 +380,7 @@ async function questionDisability5 (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDisability5 (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.disability5, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.disability5, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.disability6;
         await saveDataValue(profile, mapping.disability5, convertOption(mapping.disability5,validation.validatedValue, profile.userLanguage));
@@ -396,7 +397,7 @@ async function questionDisability6 (flow, turnContext, profile) {
 }
 
 async function saveAndValidateDisability6 (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.disability6, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.disability6, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.below21Years;
         await saveDataValue(profile, mapping.disability6, convertOption(mapping.disability6,validation.validatedValue, profile.userLanguage));
@@ -413,7 +414,7 @@ async function questionBelow21Years(flow, turnContext, profile) {
 }
 
 async function validateBelow21Years(flow, turnContext, profile) {
-    let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
@@ -435,7 +436,7 @@ async function questionGuardian (flow, turnContext, profile) {
 }
 
 async function saveAndValidateGuardian (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.guardian, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.guardian, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         if (!["NA"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.guardianDetails1;
@@ -556,7 +557,7 @@ async function questionMaritalStatus (flow, turnContext, profile) {
 }
 
 async function saveAndValidateMaritalStatus (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.maritalStatus, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.maritalStatus, profile.userLanguage, turnContext.activity.text, profile.messages);
 
     if (validation.success) {
         if (["Married", "Menikah", "Tinggal bersama", "Living with partner"].includes(validation.validatedValue)) {
@@ -609,7 +610,7 @@ async function questionChildren(flow, turnContext, profile) {
 }
 
 async function saveAndValidateChildren (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.children, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.children, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
@@ -629,7 +630,7 @@ async function questionNumberChildren(flow, turnContext, profile) {
 }
 
 async function saveAndValidateNumberChildren (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.numberChildren, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.numberChildren, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         profile.numberChildren = convertOption(mapping.numberChildren,validation.validatedValue, profile.userLanguage);
         profile.child = 1;
@@ -696,7 +697,7 @@ async function saveAndValidateChildrenGender(flow, turnContext, profile) {
         case 10: {dataElement = mapping.child10Gender; break;} 
     }
 
-    let validation = validateOption(dataElement, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(dataElement, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         if (profile.child == profile.numberChildren) {
             flow.nextQuestion = question.studying;
@@ -715,7 +716,7 @@ async function questionStudying(flow, turnContext, profile) {
 }
 
 async function saveAndValidateStudying (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.studying, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.studying, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.employed;
          await saveDataValue(profile, mapping.studying, convertOption(mapping.children,validation.validatedValue, profile.userLanguage));
@@ -735,7 +736,7 @@ async function questionEmployed(flow, turnContext, profile) {
 }
 
 async function saveAndValidateEmployed (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.employed, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.employed, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.interests;
         await saveDataValue(profile, mapping.employed, convertOption(mapping.employed,validation.validatedValue, profile.userLanguage));
@@ -801,7 +802,7 @@ async function questionMemberOrganisation (flow, turnContext, profile) {
 }
 
 async function saveAndValidateMemberOrganisation (flow, turnContext, profile)  {
-    let validation = validateOption(mapping.memberOrganisation, profile.userLanguage, turnContext.activity.text);
+    let validation = validateOption(mapping.memberOrganisation, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
@@ -892,7 +893,7 @@ async function initProfile(profile, turnContext, _endpointConfig) {
     return 1;
 }
 
-function validateOption(optionSetUID, userLanguage, optionToValidate) {
+function validateOption(optionSetUID, userLanguage, optionToValidate, messages) {
     let validOptions = Object.keys(optionSets[optionSetUID].options[userLanguage]);
 
     // create dictionary. Key-upper, value, validValue
@@ -906,7 +907,7 @@ function validateOption(optionSetUID, userLanguage, optionToValidate) {
     if (Object.keys(validOptionsDict).includes(optionToValidateCleaned)) {
         return { success: true, validatedValue: validOptionsDict[optionToValidateCleaned] };
     } else {
-        return { success: false, message: profile.messages.InvalidOption };
+        return { success: false, message: messages.InvalidOption };
     }
 }
 
