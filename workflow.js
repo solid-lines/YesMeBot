@@ -129,7 +129,7 @@ async function questionOrgUnit(flow, turnContext, profile) {
     }
     var OUs = profile.orgUnitsToChoose;
     var ouToShow = returnFBOptions(getOUItems(OUs), profile.currentFBOptPosition);
-    var text = profile.messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()];
+    var text = profile.messages.questionOrgUnit + ' ' + orgUnitLevels[profile.country][profile.userLanguage][profile.userOrgUnitLevel.toString()] + '?';
     let message = MessageFactory.suggestedActions(ouToShow, text);
     await turnContext.sendActivity(message);
 }
