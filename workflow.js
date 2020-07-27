@@ -852,7 +852,7 @@ async function initProfile(flow, profile, turnContext, _endpointConfig) {
     var facebookID = turnContext.activity.from.id;
     profile.facebookID = facebookID;
 
-    flow.nextQuestion = question.welcome;
+    flow.nextQuestion = question.language;
 }
 
 function validateOption(optionSetUID, userLanguage, optionToValidate, messages) {
