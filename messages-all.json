@@ -49,7 +49,12 @@
         "questionEducation8": "How many years of membership?",
         "questionEducation9": "Please list your recreations and interests",
         "thankyou":"Thank you, registration is now completed!!",
-        "thankyouNoSave": "Let me know if you change your mind"
+        "thankyouNoSave": "Let me know if you change your mind",
+
+        "InvalidAge": "Sorry. This is an invalid age.",
+        "InvalidOption": "Sorry. This is an invalid option.",
+        "InvalidDate": "Sorry. This is not a valid date.",
+        "InvalidPositiveOrZeroInteger": "Sorry. This is not a valid positive or zero integer."
     },
     "idn":{
         "Welcome": "Welcome to the YesMe regiter bot!",
@@ -101,6 +106,11 @@
         "questionEducation8": "Tahun keanggotaan?",
         "questionEducation9": "Tuliskan hobi anda",
         "thankyou":"Thank you, registration is now completed!!",
-        "thankyouNoSave": "Let me know if you change your mind"
+        "thankyouNoSave": "Let me know if you change your mind",
+
+        "InvalidAge": "Sorry. This is an invalid age.",
+        "InvalidOption": "Sorry. This is an invalid option.",
+        "InvalidDate": "Sorry. This is not a valid date.",
+        "InvalidPositiveOrZeroInteger": "Sorry. This is not a valid positive or zero integer."
     }
 }
