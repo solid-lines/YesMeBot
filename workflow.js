@@ -890,7 +890,6 @@ function validateDate(potentialDate, profile) {
         var dateYear = parseInt(dateTokens[0], 10);
 
         var currentDate = new Date();
-        var d = Date.parse(potentialDate)
 
         if (Date.parse(potentialDate) > currentDate) {
             throw (1);
