@@ -16,9 +16,9 @@
             "4": "Village"
         }
     },
-    "NP" : {
+    "NPL" : {
         "levels": 4,
-        "code": "NP",
+        "code": "NPL",
         "root": "ypROGtsIPyQ",
         "en": {
             "1": "Province",
