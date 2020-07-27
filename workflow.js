@@ -171,8 +171,12 @@ async function questionFirstName(flow, turnContext, profile) {
 }
 
 async function saveAndValidateFirstName(flow, turnContext, profile) {
-    flow.nextQuestion = question.lastName;
-    await saveDataValue(profile, mapping.firstName, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.firstName;
+    } else {
+        flow.nextQuestion = question.lastName;
+        await saveDataValue(profile, mapping.firstName, turnContext.activity.text);
+    }
 }
 
 async function questionLastName(flow, turnContext, profile) {
@@ -181,8 +185,12 @@ async function questionLastName(flow, turnContext, profile) {
 }
 
 async function saveAndValidateLastName(flow, turnContext, profile) {
-    flow.nextQuestion = question.gender;
-    await saveDataValue(profile, mapping.lastName, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.lastName;
+    } else {
+        flow.nextQuestion = question.gender;
+        await saveDataValue(profile, mapping.lastName, turnContext.activity.text);
+    }
 }
 
 async function questionGender(flow, turnContext, profile) {
@@ -223,8 +231,12 @@ async function questionPresentAddress(flow, turnContext, profile) {
 }
 
 async function saveAndValidatePresentAddress(flow, turnContext, profile) {
-    flow.nextQuestion = question.permanentAddress;
-    await saveDataValue(profile, mapping.presentAddress, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.presentAddress;
+    } else {
+        flow.nextQuestion = question.permanentAddress;
+        await saveDataValue(profile, mapping.presentAddress, turnContext.activity.text);
+    }
 }
 
 async function questionPermanentAddress(flow, turnContext, profile) {
@@ -233,8 +245,12 @@ async function questionPermanentAddress(flow, turnContext, profile) {
 }
 
 async function saveAndValidatePermanentAddress(flow, turnContext, profile) {
-    flow.nextQuestion = question.contactNumber;
-    await saveDataValue(profile, mapping.permanentAddress, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.permanentAddress;
+    } else {
+        flow.nextQuestion = question.contactNumber;
+        await saveDataValue(profile, mapping.permanentAddress, turnContext.activity.text);
+    }
 }
 
 async function questionContactNumber(flow, turnContext, profile) {
@@ -243,8 +259,12 @@ async function questionContactNumber(flow, turnContext, profile) {
 }
 
 async function saveAndValidateContactNumber(flow, turnContext, profile) {
-    flow.nextQuestion = question.disability;
-    await saveDataValue(profile, mapping.contactNumber, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.contactNumber;
+    } else {
+        flow.nextQuestion = question.disability;
+        await saveDataValue(profile, mapping.contactNumber, turnContext.activity.text);
+    }
 }
 
 async function questionDisability(flow, turnContext, profile) {
@@ -418,15 +438,19 @@ async function questionGuardianDetails1(flow, turnContext, profile) {
 }
 
 async function saveAndValidateGuardianDetails1(flow, turnContext, profile) {
-    flow.nextQuestion = question.guardianDetails2;
-    var mappingGuardianDetails;
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.guardianDetails1;
+    } else {
+        flow.nextQuestion = question.guardianDetails2;
+        var mappingGuardianDetails;
 
-    switch (profile.guardian) {
-        case "Mother": { mappingGuardianDetails = mapping.motherFirstName; break; }
-        case "Father": { mappingGuardianDetails = mapping.fatherFirstName; break; }
-        case "Guardian": { mappingGuardianDetails = mapping.guardianFirstName; break; }
+        switch (profile.guardian) {
+            case "Mother": { mappingGuardianDetails = mapping.motherFirstName; break; }
+            case "Father": { mappingGuardianDetails = mapping.fatherFirstName; break; }
+            case "Guardian": { mappingGuardianDetails = mapping.guardianFirstName; break; }
+        }
+        await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
-    await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
 }
 
 async function questionGuardianDetails2(flow, turnContext, profile) {
@@ -436,15 +460,19 @@ async function questionGuardianDetails2(flow, turnContext, profile) {
 }
 
 async function saveAndValidateGuardianDetails2(flow, turnContext, profile) {
-    flow.nextQuestion = question.guardianDetails3;
-    var mappingGuardianDetails;
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.guardianDetails2;
+    } else {
+        flow.nextQuestion = question.guardianDetails3;
+        var mappingGuardianDetails;
 
-    switch (profile.guardian) {
-        case "Mother": { mappingGuardianDetails = mapping.motherMiddleName; break; }
-        case "Father": { mappingGuardianDetails = mapping.fatherMiddleName; break; }
-        case "Guardian": { mappingGuardianDetails = mapping.guardianMiddleName; break; }
+        switch (profile.guardian) {
+            case "Mother": { mappingGuardianDetails = mapping.motherMiddleName; break; }
+            case "Father": { mappingGuardianDetails = mapping.fatherMiddleName; break; }
+            case "Guardian": { mappingGuardianDetails = mapping.guardianMiddleName; break; }
+        }
+        await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
-    await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
 }
 
 async function questionGuardianDetails3(flow, turnContext, profile) {
@@ -454,16 +482,21 @@ async function questionGuardianDetails3(flow, turnContext, profile) {
 }
 
 async function saveAndValidateGuardianDetails3(flow, turnContext, profile) {
-    flow.nextQuestion = question.guardianDetails4;
-    var mappingGuardianDetails;
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.guardianDetails3;
+    } else {
+        flow.nextQuestion = question.guardianDetails4;
+        var mappingGuardianDetails;
 
-    switch (profile.guardian) {
-        case "Mother": { mappingGuardianDetails = mapping.motherLastName; break; }
-        case "Father": { mappingGuardianDetails = mapping.fatherLastName; break; }
-        case "Guardian": { mappingGuardianDetails = mapping.guardianLastName; break; }
+        switch (profile.guardian) {
+            case "Mother": { mappingGuardianDetails = mapping.motherLastName; break; }
+            case "Father": { mappingGuardianDetails = mapping.fatherLastName; break; }
+            case "Guardian": { mappingGuardianDetails = mapping.guardianLastName; break; }
+        }
+        await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
-    await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
 }
+
 
 async function questionGuardianDetails4(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateGuardianDetails4;
@@ -472,15 +505,19 @@ async function questionGuardianDetails4(flow, turnContext, profile) {
 }
 
 async function saveAndValidateGuardianDetails4(flow, turnContext, profile) {
-    flow.nextQuestion = question.guardianDetails5;
-    var mappingGuardianDetails;
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.guardianDetails4;
+    } else {
+        flow.nextQuestion = question.guardianDetails5;
+        var mappingGuardianDetails;
 
-    switch (profile.guardian) {
-        case "Mother": { mappingGuardianDetails = mapping.motherContactNumber; break; }
-        case "Father": { mappingGuardianDetails = mapping.fatherContactNumber; break; }
-        case "Guardian": { mappingGuardianDetails = mapping.guardianContactNumber; break; }
+        switch (profile.guardian) {
+            case "Mother": { mappingGuardianDetails = mapping.motherContactNumber; break; }
+            case "Father": { mappingGuardianDetails = mapping.fatherContactNumber; break; }
+            case "Guardian": { mappingGuardianDetails = mapping.guardianContactNumber; break; }
+        }
+        await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
-    await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
 }
 
 async function questionGuardianDetails5(flow, turnContext, profile) {
@@ -490,15 +527,19 @@ async function questionGuardianDetails5(flow, turnContext, profile) {
 }
 
 async function saveAndValidateGuardianDetails5(flow, turnContext, profile) {
-    flow.nextQuestion = question.maritalStatus;
-    var mappingGuardianDetails;
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.guardianDetails5;
+    } else {
+        flow.nextQuestion = question.maritalStatus;
+        var mappingGuardianDetails;
 
-    switch (profile.guardian) {
-        case "Mother": { mappingGuardianDetails = mapping.motherOccupation; break; }
-        case "Father": { mappingGuardianDetails = mapping.fatheerOccupation; break; }
-        case "Guardian": { mappingGuardianDetails = mapping.guardianOccupation; flow.nextQuestion = question.guardianDetails6; break; }
+        switch (profile.guardian) {
+            case "Mother": { mappingGuardianDetails = mapping.motherOccupation; break; }
+            case "Father": { mappingGuardianDetails = mapping.fatheerOccupation; break; }
+            case "Guardian": { mappingGuardianDetails = mapping.guardianOccupation; flow.nextQuestion = question.guardianDetails6; break; }
+        }
+        await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
-    await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
 }
 
 async function questionGuardianDetails6(flow, turnContext, profile) {
@@ -508,8 +549,12 @@ async function questionGuardianDetails6(flow, turnContext, profile) {
 }
 
 async function saveAndValidateGuardianDetails6(flow, turnContext, profile) {
-    flow.nextQuestion = question.maritalStatus;
-    await saveDataValue(profile, mapping.guardianRelationship, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.guardianDetails6;
+    } else {
+        flow.nextQuestion = question.maritalStatus;
+        await saveDataValue(profile, mapping.guardianRelationship, turnContext.activity.text);
+    }
 }
 
 async function questionMaritalStatus(flow, turnContext, profile) {
@@ -541,8 +586,12 @@ async function questionPartnerName(flow, turnContext, profile) {
 }
 
 async function saveAndValidatePartnerName(flow, turnContext, profile) {
-    flow.nextQuestion = question.partnerOccupation;
-    await saveDataValue(profile, mapping.partnerName, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.partnerName;
+    } else {
+        flow.nextQuestion = question.partnerOccupation;
+        await saveDataValue(profile, mapping.partnerName, turnContext.activity.text);
+    }
 }
 
 async function questionPartnerOccupation(flow, turnContext, profile) {
@@ -551,8 +600,12 @@ async function questionPartnerOccupation(flow, turnContext, profile) {
 }
 
 async function saveAndValidatePartnerOccupation(flow, turnContext, profile) {
-    flow.nextQuestion = question.partnerContactNumber;
-    await saveDataValue(profile, mapping.partnerOccupation, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.partnerOccupation;
+    } else {
+        flow.nextQuestion = question.partnerContactNumber;
+        await saveDataValue(profile, mapping.partnerOccupation, turnContext.activity.text);
+    }
 }
 
 async function questionPartnerContactNumber(flow, turnContext, profile) {
@@ -561,8 +614,12 @@ async function questionPartnerContactNumber(flow, turnContext, profile) {
 }
 
 async function saveAndValidatePartnerContactNumber(flow, turnContext, profile) {
-    flow.nextQuestion = question.children;
-    await saveDataValue(profile, mapping.partnerContactNumber, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.partnerContactNumber;
+    } else {
+        flow.nextQuestion = question.children;
+        await saveDataValue(profile, mapping.partnerContactNumber, turnContext.activity.text);
+    }
 }
 
 async function questionChildren(flow, turnContext, profile) {
@@ -714,8 +771,12 @@ async function questionInterests(flow, turnContext, profile) {
 }
 
 async function saveAndValidateInterests(flow, turnContext, profile) {
-    flow.nextQuestion = question.highestEducation;
-    await saveDataValue(profile, mapping.interests, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.interests;
+    } else {
+        flow.nextQuestion = question.highestEducation;
+        await saveDataValue(profile, mapping.interests, turnContext.activity.text);
+    }
 }
 
 async function questionHighestEducation(flow, turnContext, profile) {
@@ -724,8 +785,12 @@ async function questionHighestEducation(flow, turnContext, profile) {
 }
 
 async function saveAndValidateHighestEducation(flow, turnContext, profile) {
-    flow.nextQuestion = question.yearGraduated;
-    await saveDataValue(profile, mapping.highestEducation, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.highestEducation;
+    } else {
+        flow.nextQuestion = question.yearGraduated;
+        await saveDataValue(profile, mapping.highestEducation, turnContext.activity.text);
+    }
 }
 
 async function questionYearGraduated(flow, turnContext, profile) {
@@ -753,8 +818,12 @@ async function questionStopEducation(flow, turnContext, profile) {
 }
 
 async function saveAndValidateStopEducation(flow, turnContext, profile) {
-    flow.nextQuestion = question.memberOrganisation;
-    await saveDataValue(profile, mapping.stopEducation, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.stopEducation;
+    } else {
+        flow.nextQuestion = question.memberOrganisation;
+        await saveDataValue(profile, mapping.stopEducation, turnContext.activity.text);
+    }
 }
 
 async function questionMemberOrganisation(flow, turnContext, profile) {
@@ -783,9 +852,14 @@ async function questionOrganisationName(flow, turnContext, profile) {
 }
 
 async function saveAndValidateOrganisationName(flow, turnContext, profile) {
-    flow.nextQuestion = question.position;
-    await saveDataValue(profile, mapping.organizationName, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.organisationName;
+    } else {
+        flow.nextQuestion = question.position;
+        await saveDataValue(profile, mapping.organizationName, turnContext.activity.text);
+    }
 }
+
 
 async function questionPosition(flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidatePosition;
@@ -793,8 +867,12 @@ async function questionPosition(flow, turnContext, profile) {
 }
 
 async function saveAndValidatePosition(flow, turnContext, profile) {
-    flow.nextQuestion = question.yearsMembership;
-    await saveDataValue(profile, mapping.position, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.position;
+    } else {
+        flow.nextQuestion = question.yearsMembership;
+        await saveDataValue(profile, mapping.position, turnContext.activity.text);
+    }
 }
 
 async function questionYearsMembership(flow, turnContext, profile) {
@@ -820,8 +898,12 @@ async function questionRecreations(flow, turnContext, profile) {
 }
 
 async function saveAndValidateRecreations(flow, turnContext, profile) {
-    flow.nextQuestion = question.finish;
-    await saveDataValue(profile, mapping.recreations, turnContext.activity.text);
+    if (turnContext.activity.text == null) {
+        flow.nextQuestion = question.recreations;
+    } else {
+        flow.nextQuestion = question.finish;
+        await saveDataValue(profile, mapping.recreations, turnContext.activity.text);
+    }
 }
 
 async function finish(flow, turnContext, profile) {
