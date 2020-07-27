@@ -67,6 +67,7 @@ class YesMeBot extends ActivityHandler {
             
             case question.welcome:{
                 await workflow.initProfile(flow, profile, turnContext, endpointConfig);
+                await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
