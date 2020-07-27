@@ -32,5 +32,15 @@
     "nodemailer": "^6.4.6",
     "util": "^0.12.1"
   },
-  "homepage": "https://github.com/solid-lines/YesMeBot#readme"
+  "homepage": "https://github.com/solid-lines/YesMeBot#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.5.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "standard": "^14.3.4"
+  }
 }
