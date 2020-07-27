@@ -138,13 +138,14 @@ async function questionOrgUnit(flow, turnContext, profile) {
 
 async function questionDonor (flow, turnContext, profile) {
     flow.nextQuestion = question.saveAndValidateDonor;
+    //The options depends on the country selected. Same text for all languages
     var optionsToShow = returnFBOptions(Object.keys(optionSets[mapping.donor].options[profile.country]), profile.currentFBOptPosition);
     let message = MessageFactory.suggestedActions(optionsToShow, profile.messages.questionDonor);
     await turnContext.sendActivity(message);
 }
 
 async function saveAndValidateDonor (flow, turnContext, profile)  {
-    //TODO Review profile.country en vez de profile.language
+    //The options depends on the country selected. Same text for all languages
     let validation = validateOption(mapping.donor, profile.country, turnContext.activity.text, profile.messages);
     if (validation.success) {
         flow.nextQuestion = question.firstName;
