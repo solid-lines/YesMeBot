@@ -48,14 +48,15 @@ async function validatePolicy(flow, turnContext, profile) {
             if (response.status == 200) {
                 logger.info('The profile alredy exists in mongodb');
                 flow.nextQuestion = question.userExist;
-            } else if (response.status == 404) { // profile not found in the server
+            } else if (response.status == 404) {
+                // profile not found in the server
                 logger.info('The profile not found in mongodb. Create a new one');
-                await saveProfile(profile);
+                await saveProfile(profile); // TODO manage communications
                 flow.nextQuestion = question.country;
             } else {
+                // there is an error in the response
                 logger.error('There was an error getting the profile');
                 logger.error(response);
-                // there is an error in the response
                 flow.nextQuestion = question.finishDueToError;
             }
         } else flow.nextQuestion = question.finishNoSave;
@@ -139,7 +140,17 @@ async function questionOrgUnit(flow, turnContext, profile) {
             profile.userOrgUnitLevel++;
             profile.currentFBOptPosition = 0;
             var response = await getChildrenOU(profile);
-            profile.orgUnitsToChoose = response.data;
+            if (response.status == 200) {
+                logger.info('getChildrenOU');
+                profile.orgUnitsToChoose = response.data;
+            } else {
+                // there is an error in the response
+                logger.error('There was an error getting the children OUs');
+                logger.error(response);
+                flow.nextQuestion = question.finishDueToError;
+            }
+
+
         }
     }
     var OUs = profile.orgUnitsToChoose;
@@ -924,7 +935,7 @@ async function saveAndValidateRecreations(flow, turnContext, profile) {
 }
 
 async function finish(flow, turnContext, profile) {
-    await sendToDhis2(profile);
+    await sendToDhis2(profile);//TODO manage communications
     await turnContext.sendActivity(profile.messages.thankyou);
     flow.nextQuestion = question.welcome;
 }
@@ -1158,6 +1169,7 @@ async function saveOrgUnit(profile) {
     });
 }
 
+// TODO manage communications
 async function saveDataValue(profile, uid, value) {
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID + '/dataCollectedFromBot';
     var payload = {};
@@ -1207,6 +1219,7 @@ async function getChildrenOU(profile) {
     } catch (error) {
         logger.error(`Error getChildrenOU orgUnit=${profile.userOrgUnit}`);
         logger.error(error);
+        return error;
     }
 }
 
