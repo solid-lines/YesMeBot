@@ -46,7 +46,7 @@ async function validatePolicy(flow, turnContext, profile) {
         if (["Yes"].includes(validation.validatedValue)) {
             var value = await getProfile(profile);
             if (value.status == 200) {
-                logger.info('The user exists');// The user exists on MongoDB
+                logger.info('The profile alredy exists in mongodb');
                 flow.nextQuestion = question.userExist;
             } else {
                 await saveProfile(profile);
@@ -107,7 +107,7 @@ async function questionOrgUnit(flow, turnContext, profile) {
     } else {
         if (profile.userOrgUnitLevel != 0) {
             var selectedOrgUnit = null
-            if (turnContext.activity.text != null){
+            if (turnContext.activity.text != null) {
                 selectedOrgUnit = getOrgUnitId(profile.orgUnitsToChoose, turnContext.activity.text);
             }
 
@@ -121,8 +121,12 @@ async function questionOrgUnit(flow, turnContext, profile) {
         }
         profile.currentFBOptPosition = 0;
         if (profile.userOrgUnitLevel == orgUnitLevels[profile.country].levels) {
-            flow.nextQuestion = question.donor;
-            saveOrgUnit(profile);
+            const response = saveOrgUnit(profile);
+            if (response){
+                flow.nextQuestion = question.donor;
+            } else { // there is an error in the response
+                flow.nextQuestion = question.finishDueToError;
+            }
             return;
         } else {
             flow.nextQuestion = question.orgunit;
@@ -924,6 +928,11 @@ async function finishNoSave(flow, turnContext, profile) {
     flow.nextQuestion = question.welcome;
 }
 
+async function finishDueToError(flow, turnContext, profile) {
+    await turnContext.sendActivity(profile.messages.finishDueToError);
+    flow.nextQuestion = question.welcome;
+}
+
 async function initProfile(flow, profile, turnContext, _endpointConfig) {
     // clear the profile
     for (var member in profile) delete profile[member];
@@ -1128,16 +1137,18 @@ async function saveOrgUnit(profile) {
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID + '/ou_uid/' + profile.userOrgUnit;
     logger.info(session_url);
 
-    axios.post(session_url, {}, {
+    return axios.post(session_url, {}, {
         auth: {
             username: endpointConfig.middlewareUser,
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
         logger.info(`Saved orgunit. facebookID=${profile.facebookID} orgUnit=${profile.userOrgUnit}. responseStatus=${response.status}`);
+        return true;
     }).catch(function (error) {
         logger.error(`Error saving org unit. facebookID=${profile.facebookID} orgUnit=${profile.userOrgUnit}`);
         logger.error(error);
+        return false;
     });
 }
 
@@ -1232,5 +1243,5 @@ module.exports = {
     questionOrganisationName, saveAndValidateOrganisationName, questionPosition, saveAndValidatePosition,
     questionYearsMembership, saveAndValidateYearsMembership, questionRecreations, saveAndValidateRecreations, questionPolicy, validatePolicy,
     finish, questionOrgUnit, finishNoSave, questionDonor, saveAndValidateDonor, initProfile, questionCountry, validateCountry,
-    questionLanguage, validateLanguage, questionUserExist, validateUserExist
+    questionLanguage, validateLanguage, questionUserExist, validateUserExist, finishDueToError
 };

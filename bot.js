@@ -580,6 +580,10 @@ class YesMeBot extends ActivityHandler {
                 break;
             }
 
+            case question.finishDueToError: {
+                await workflow.finishDueToError(flow, turnContext, profile);
+                break;
+            }
         }
 
     }

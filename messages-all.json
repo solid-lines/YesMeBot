@@ -50,6 +50,7 @@
         "questionEducation9": "Please list your recreations and interests",
         "thankyou":"Thank you, registration is now completed!!",
         "thankyouNoSave": "Let me know if you change your mind",
+        "finishDueToError": "Sorry. Due to an internal error, I can't save the data. Let's start again.",
 
         "InvalidAge": "Sorry. This is an invalid age.",
         "InvalidOption": "Sorry. This is an invalid option.",
