@@ -128,7 +128,7 @@ async function questionOrgUnit(flow, turnContext, profile) {
             flow.nextQuestion = question.orgunit;
             profile.userOrgUnitLevel++;
             profile.currentFBOptPosition = 0;
-            var response = await getChilrenOU(profile);
+            var response = await getChildrenOU(profile);
             profile.orgUnitsToChoose = response.data;
         }
     }
@@ -1116,9 +1116,9 @@ async function saveProfile(profile) {
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
-        logger.info('Authenticated');
+        logger.info(`Saved profile. facebookID=${profile.facebookID}. responseStatus=${response.status}`);
     }).catch(function (error) {
-        logger.error('Error on Authentication');
+        logger.error(`Error saving profile. facebookID=${profile.facebookID}`);
         logger.error(error);
     });
 }
@@ -1134,9 +1134,9 @@ async function saveOrgUnit(profile) {
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
-        logger.info('Authenticated');
+        logger.info(`Saved orgunit. facebookID=${profile.facebookID} orgUnit=${profile.userOrgUnit}. responseStatus=${response.status}`);
     }).catch(function (error) {
-        logger.error('Error on Authentication');
+        logger.error(`Error saving org unit. facebookID=${profile.facebookID} orgUnit=${profile.userOrgUnit}`);
         logger.error(error);
     });
 }
@@ -1154,9 +1154,9 @@ async function saveDataValue(profile, uid, value) {
         },
         data: payload
     }).then(function (response) {
-        logger.info('Authenticated');
+        logger.info(`Saved data Value. facebookID=${profile.facebookID} DE=${uid} Value=${value}. responseStatus=${response.status}`);
     }).catch(function (error) {
-        logger.error('Error on Authentication');
+        logger.error(`Error saving org unit. facebookID=${profile.facebookID} DE=${uid} Value=${value}`);
         logger.error(error);
     });
 }
@@ -1170,14 +1170,14 @@ async function sendToDhis2(profile) {
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
-        logger.info('Authenticated');
+        logger.info(`Data sent to dhis2. facebookID=${profile.facebookID}. responseStatus=${response.status}`);
     }).catch(function (error) {
-        logger.error('Error on Authentication');
+        logger.error('Error sending data to dhis2');
         logger.error(error);
     });
 }
 
-async function getChilrenOU(profile) {
+async function getChildrenOU(profile) {
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/getChildrenOU/' + profile.userOrgUnit;
 
     try {
@@ -1188,7 +1188,8 @@ async function getChilrenOU(profile) {
             }
         })
     } catch (error) {
-        logger.error(error)
+        logger.error(`Error getChildrenOU orgUnit=${profile.userOrgUnit}`);
+        logger.error(error);
     }
 }
 
@@ -1205,6 +1206,7 @@ async function getProfile(profile) {
             }
         })
     } catch (error) {
+        logger.error(`Error getProfile facebookID=${profile.facebookID}`);
         logger.error(error);
         return error;
     }
