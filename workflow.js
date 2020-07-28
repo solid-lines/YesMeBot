@@ -44,13 +44,19 @@ async function validatePolicy(flow, turnContext, profile) {
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
-            var value = await getProfile(profile);
-            if (value.status == 200) {
+            var response = await getProfile(profile);
+            if (response.status == 200) {
                 logger.info('The profile alredy exists in mongodb');
                 flow.nextQuestion = question.userExist;
-            } else {
+            } else if (response.status == 404) { // profile not found in the server
+                logger.info('The profile not found in mongodb. Create a new one');
                 await saveProfile(profile);
                 flow.nextQuestion = question.country;
+            } else {
+                logger.error('There was an error getting the profile');
+                logger.error(response);
+                // there is an error in the response
+                flow.nextQuestion = question.finishDueToError;
             }
         } else flow.nextQuestion = question.finishNoSave;
     } else {
@@ -122,7 +128,7 @@ async function questionOrgUnit(flow, turnContext, profile) {
         profile.currentFBOptPosition = 0;
         if (profile.userOrgUnitLevel == orgUnitLevels[profile.country].levels) {
             const response = saveOrgUnit(profile);
-            if (response){
+            if (response) {
                 flow.nextQuestion = question.donor;
             } else { // there is an error in the response
                 flow.nextQuestion = question.finishDueToError;
