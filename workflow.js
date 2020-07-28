@@ -3,6 +3,7 @@ const optionSets = require('./config-optionSets.json');
 const mapping = require('./mapping.json');
 const axios = require("axios");
 const { MessageFactory } = require("botbuilder");
+const logger = require('./logger');
 
 const question = require('./flow.json');
 const orgUnitLevels = require('./country-levels.json');
@@ -45,7 +46,7 @@ async function validatePolicy(flow, turnContext, profile) {
         if (["Yes"].includes(validation.validatedValue)) {
             var value = await getProfile(profile);
             if (value.status == 200) {
-                console.log('The user exists');// The user exists on MongoDB
+                logger.info('The user exists');// The user exists on MongoDB
                 flow.nextQuestion = question.userExist;
             } else {
                 await saveProfile(profile);
@@ -1115,17 +1116,17 @@ async function saveProfile(profile) {
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
-        console.log('Authenticated');
+        logger.info('Authenticated');
     }).catch(function (error) {
-        console.log('Error on Authentication');
-        console.log(error);
+        logger.error('Error on Authentication');
+        logger.error(error);
     });
 }
 
 async function saveOrgUnit(profile) {
 
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID + '/ou_uid/' + profile.userOrgUnit;
-    console.log(session_url);
+    logger.info(session_url);
 
     axios.post(session_url, {}, {
         auth: {
@@ -1133,10 +1134,10 @@ async function saveOrgUnit(profile) {
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
-        console.log('Authenticated');
+        logger.info('Authenticated');
     }).catch(function (error) {
-        console.log('Error on Authentication');
-        console.log(error);
+        logger.error('Error on Authentication');
+        logger.error(error);
     });
 }
 
@@ -1153,10 +1154,10 @@ async function saveDataValue(profile, uid, value) {
         },
         data: payload
     }).then(function (response) {
-        console.log('Authenticated');
+        logger.info('Authenticated');
     }).catch(function (error) {
-        console.log('Error on Authentication');
-        console.log(error);
+        logger.error('Error on Authentication');
+        logger.error(error);
     });
 }
 
@@ -1169,10 +1170,10 @@ async function sendToDhis2(profile) {
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
-        console.log('Authenticated');
+        logger.info('Authenticated');
     }).catch(function (error) {
-        console.log('Error on Authentication');
-        console.log(error);
+        logger.error('Error on Authentication');
+        logger.error(error);
     });
 }
 
@@ -1187,14 +1188,14 @@ async function getChilrenOU(profile) {
             }
         })
     } catch (error) {
-        console.error(error)
+        logger.error(error)
     }
 }
 
 async function getProfile(profile) {
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID;
 
-    console.log(session_url);
+    logger.info(session_url);
 
     try {
         return await axios.get(session_url, {
@@ -1204,7 +1205,7 @@ async function getProfile(profile) {
             }
         })
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         return error;
     }
 }
