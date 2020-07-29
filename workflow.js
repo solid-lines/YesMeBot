@@ -54,7 +54,7 @@ async function validatePolicy(flow, turnContext, profile) {
                 logger.info('The profile not found in mongodb. Create a new one');
                 await saveProfile(profile); // TODO manage communications
                 flow.nextQuestion = question.country;
-            } else {
+            } else { // undefined or response.status == 400
                 // there is an error in the response
                 logger.error('There was an error getting the profile');
                 logger.error(response);
@@ -1220,7 +1220,11 @@ async function getChildrenOU(profile) {
     } catch (error) {
         logger.error(`Error getChildrenOU orgUnit=${profile.userOrgUnit}`);
         logger.error(error);
-        return error;
+        if (error.response != null){ // If the problem is related to unreachable address, the response value is null (but there is a response key-value in the error).
+            return error.response;
+        } else{
+            return error;
+        }
     }
 }
 
@@ -1239,7 +1243,11 @@ async function getProfile(profile) {
     } catch (error) {
         logger.error(`Error getProfile facebookID=${profile.facebookID}`);
         logger.error(error);
-        return error;
+        if (error.response != null){ // If the problem is related to unreachable address, the response value is null (but there is a response key-value in the error).
+            return error.response;
+        } else{
+            return error;
+        }
     }
 }
 
