@@ -45,6 +45,7 @@ async function validatePolicy(flow, turnContext, profile) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             var response = await getProfile(profile);
+            logger.info('getProfile response.status='+response.status);
             if (response.status == 200) {
                 logger.info('The profile alredy exists in mongodb');
                 flow.nextQuestion = question.userExist;
