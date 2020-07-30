@@ -58,8 +58,15 @@ async function validatePolicy(flow, turnContext, profile) {
                     if (response_delete.status == 200) {
                         // profile deleted successfully
                         // create new profile
-                        await saveProfile(profile); // TODO manage communications
-                        flow.nextQuestion = question.country;
+                        const response_saveProfile = await saveProfile(profile);
+                        if (response_saveProfile.status == 200) {
+                            flow.nextQuestion = question.country;
+                        } else { // undefined or response.status == 400
+                            // there is an error in the response
+                            logger.error('There was an error deleting the profile ' + profile.facebookID);
+                            logger.error(response);
+                            flow.nextQuestion = question.finishDueToError;
+                        }
                     } else { // undefined or response.status == 400
                         // there is an error in the response
                         logger.error('There was an error deleting the profile ' + profile.facebookID);
@@ -70,8 +77,16 @@ async function validatePolicy(flow, turnContext, profile) {
             } else if (response.status == 404) {
                 // profile not found in the server
                 logger.info('The profile not found in mongodb. Create a new one');
-                await saveProfile(profile); // TODO manage communications
-                flow.nextQuestion = question.country;
+                const response_saveProfile = await saveProfile(profile);
+                if (response_saveProfile.status == 200) {
+                    flow.nextQuestion = question.country;
+                } else { // undefined or response.status == 400
+                    // there is an error in the response
+                    logger.error('There was an error deleting the profile ' + profile.facebookID);
+                    logger.error(response);
+                    flow.nextQuestion = question.finishDueToError;
+                }
+
             } else { // undefined or response.status == 400
                 // there is an error in the response
                 logger.error('There was an error getting the profile');
@@ -1156,7 +1171,7 @@ async function saveProfile(profile) {
 
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID;
 
-    return axios.post(session_url, {}, {
+    return await axios.post(session_url, {}, {
         auth: {
             username: endpointConfig.middlewareUser,
             password: endpointConfig.middlewarePassword
