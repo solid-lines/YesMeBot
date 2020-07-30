@@ -49,11 +49,12 @@ async function validatePolicy(flow, turnContext, profile) {
             if (response.status == 200) {
                 logger.info('The profile alredy exists in mongodb');
                 const current_status = response.data.status
-                logger.info('The status of the profile ' + profile + ' is ' + current_status);
+                logger.info('The status of the profile ' + profile.facebookID + ' is ' + current_status);
                 if (current_status == "synced") {
                     flow.nextQuestion = question.userExist;
                 } else if (current_status == "never_synced" || current_status == "error_synced") {
-                    const response_delete = deleteProfile(profile);
+                    // TODO, maybe with error_synced the approach should be "clear the profile" (different than remove, because tei&enrollment uid needs to be kept)
+                    const response_delete = await deleteProfile(profile);
                     if (response_delete.status == 200) {
                         // profile deleted successfully
                         // create new profile
@@ -61,7 +62,7 @@ async function validatePolicy(flow, turnContext, profile) {
                         flow.nextQuestion = question.country;
                     } else { // undefined or response.status == 400
                         // there is an error in the response
-                        logger.error('There was an error deleting the profile');
+                        logger.error('There was an error deleting the profile ' + profile.facebookID);
                         logger.error(response);
                         flow.nextQuestion = question.finishDueToError;
                     }
@@ -95,6 +96,7 @@ async function validateUserExist(flow, turnContext, profile) {
     if (validation.success) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
+            //TODO Clear (different than remove, because tei&enrollment uid needs to be kept) the mongodb profile
             flow.nextQuestion = question.country;
         } else flow.nextQuestion = question.finishNoSave;
     } else {
