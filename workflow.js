@@ -64,13 +64,13 @@ async function validatePolicy(flow, turnContext, profile) {
                         } else { // undefined or response.status == 400
                             // there is an error in the response
                             logger.error('There was an error saving the profile ' + profile.facebookID);
-                            logger.error(response);
+                            logger.error(response_saveProfile);
                             flow.nextQuestion = question.finishDueToError;
                         }
                     } else { // undefined or response.status == 400
                         // there is an error in the response
                         logger.error('There was an error deleting the profile ' + profile.facebookID);
-                        logger.error(response);
+                        logger.error(response_delete);
                         flow.nextQuestion = question.finishDueToError;
                     }
                 }
@@ -83,7 +83,7 @@ async function validatePolicy(flow, turnContext, profile) {
                 } else { // undefined or response.status == 400
                     // there is an error in the response
                     logger.error('There was an error saving the profile ' + profile.facebookID);
-                    logger.error(response);
+                    logger.error(response_saveProfile);
                     flow.nextQuestion = question.finishDueToError;
                 }
 
@@ -970,9 +970,16 @@ async function saveAndValidateRecreations(flow, turnContext, profile) {
 }
 
 async function finish(flow, turnContext, profile) {
-    await sendToDhis2(profile);//TODO manage communications
-    await turnContext.sendActivity(profile.messages.thankyou);
-    flow.nextQuestion = question.welcome;
+    const response_sendToDhis2 = await sendToDhis2(profile);
+    if (response_sendToDhis2.status == 200) {
+        await turnContext.sendActivity(profile.messages.thankyou);
+        flow.nextQuestion = question.welcome;
+    } else { // undefined or response.status == 400
+        // there is an error in the response
+        logger.error('There was an error saving the profile ' + profile.facebookID);
+        logger.error(response_sendToDhis2);
+        flow.nextQuestion = question.finishDueToError;
+    }
 }
 
 async function finishNoSave(flow, turnContext, profile) {
@@ -1250,16 +1257,18 @@ async function saveDataValue(profile, uid, value) {
 async function sendToDhis2(profile) {
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/sendToDhis2/' + profile.facebookID;
 
-    axios.post(session_url, {}, {
+    return await axios.post(session_url, {}, {
         auth: {
             username: endpointConfig.middlewareUser,
             password: endpointConfig.middlewarePassword
         }
     }).then(function (response) {
         logger.info(`Data sent to dhis2. facebookID=${profile.facebookID}. responseStatus=${response.status}`);
+        return response;
     }).catch(function (error) {
         logger.error('Error sending data to dhis2');
         logger.error(error);
+        return error;
     });
 }
 
