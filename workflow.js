@@ -1170,10 +1170,10 @@ async function saveProfile(profile) {
 }
 
 async function deleteProfile(profile) {
-
+    logger.info("deleteProfile");
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID;
 
-    return axios.delete(session_url, {}, {
+    return await axios.delete(session_url, {
         auth: {
             username: endpointConfig.middlewareUser,
             password: endpointConfig.middlewarePassword
