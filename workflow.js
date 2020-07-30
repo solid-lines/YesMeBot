@@ -1178,9 +1178,11 @@ async function saveProfile(profile) {
         }
     }).then(function (response) {
         logger.info(`Saved profile. facebookID=${profile.facebookID}. responseStatus=${response.status}`);
+        return response;
     }).catch(function (error) {
         logger.error(`Error saving profile. facebookID=${profile.facebookID}`);
         logger.error(error);
+        return error;
     });
 }
 
@@ -1195,9 +1197,11 @@ async function deleteProfile(profile) {
         }
     }).then(function (response) {
         logger.info(`Deleted profile. facebookID=${profile.facebookID}. responseStatus=${response.status}`);
+        return response;
     }).catch(function (error) {
         logger.error(`Error deleting profile. facebookID=${profile.facebookID}`);
         logger.error(error);
+        return error;
     });
 }
 
