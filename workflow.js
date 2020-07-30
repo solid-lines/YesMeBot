@@ -976,7 +976,7 @@ async function finish(flow, turnContext, profile) {
         flow.nextQuestion = question.welcome;
     } else { // undefined or response.status == 400
         // there is an error in the response
-        logger.error('There was an error saving the profile ' + profile.facebookID);
+        logger.error('There was an error sending data to dhis2 of the profile ' + profile.facebookID);
         logger.error(response_sendToDhis2);
         flow.nextQuestion = question.finishDueToError;
     }
