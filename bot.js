@@ -572,16 +572,19 @@ class YesMeBot extends ActivityHandler {
 
             case question.finish: {
                 await workflow.finish(flow, turnContext, profile);
+                await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
             case question.finishNoSave: {
                 await workflow.finishNoSave(flow, turnContext, profile);
+                await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
             case question.finishDueToError: {
                 await workflow.finishDueToError(flow, turnContext, profile);
+                await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
         }
