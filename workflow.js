@@ -47,7 +47,7 @@ async function validatePolicy(flow, turnContext, profile) {
             var response = await getProfile(profile);
             logger.info('getProfile response.status=' + response.status);
             if (response.status == 200) {
-                logger.info('The profile alredy exists in mongodb');
+                logger.info('The profile already exists in mongodb');
                 const current_status = response.data.status
                 logger.info('The status of the profile ' + profile.facebookID + ' is ' + current_status);
                 if (current_status == "synced") {
@@ -63,7 +63,7 @@ async function validatePolicy(flow, turnContext, profile) {
                             flow.nextQuestion = question.country;
                         } else { // undefined or response.status == 400
                             // there is an error in the response
-                            logger.error('There was an error deleting the profile ' + profile.facebookID);
+                            logger.error('There was an error saving the profile ' + profile.facebookID);
                             logger.error(response);
                             flow.nextQuestion = question.finishDueToError;
                         }
@@ -82,7 +82,7 @@ async function validatePolicy(flow, turnContext, profile) {
                     flow.nextQuestion = question.country;
                 } else { // undefined or response.status == 400
                     // there is an error in the response
-                    logger.error('There was an error deleting the profile ' + profile.facebookID);
+                    logger.error('There was an error saving the profile ' + profile.facebookID);
                     logger.error(response);
                     flow.nextQuestion = question.finishDueToError;
                 }
