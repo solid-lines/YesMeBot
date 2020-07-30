@@ -1220,7 +1220,7 @@ async function saveOrgUnit(profile) {
         logger.info(`Saved orgunit. facebookID=${profile.facebookID} orgUnit=${profile.userOrgUnit}. responseStatus=${response.status}`);
         return true;
     }).catch(function (error) {
-        logger.error(`Error saving org unit. facebookID=${profile.facebookID} orgUnit=${profile.userOrgUnit}`);
+        logger.error(`Error saving orgunit. facebookID=${profile.facebookID} orgUnit=${profile.userOrgUnit}`);
         logger.error(error);
         return false;
     });
@@ -1242,7 +1242,7 @@ async function saveDataValue(profile, uid, value) {
     }).then(function (response) {
         logger.info(`Saved data Value. facebookID=${profile.facebookID} DE=${uid} Value=${value}. responseStatus=${response.status}`);
     }).catch(function (error) {
-        logger.error(`Error saving org unit. facebookID=${profile.facebookID} DE=${uid} Value=${value}`);
+        logger.error(`Error saving data Value facebookID=${profile.facebookID} DE=${uid} Value=${value}`);
         logger.error(error);
     });
 }
