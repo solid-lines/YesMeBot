@@ -580,7 +580,6 @@ class YesMeBot extends ActivityHandler {
 
             case question.finishNoSave: {
                 await workflow.finishNoSave(flow, turnContext, profile);
-                await YesMeBot.fillOutUserRegistration(flow, profile, turnContext);
                 break;
             }
 
