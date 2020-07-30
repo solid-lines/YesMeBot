@@ -45,10 +45,27 @@ async function validatePolicy(flow, turnContext, profile) {
         //TODO Allow Multiple languages
         if (["Yes"].includes(validation.validatedValue)) {
             var response = await getProfile(profile);
-            logger.info('getProfile response.status='+response.status);
+            logger.info('getProfile response.status=' + response.status);
             if (response.status == 200) {
                 logger.info('The profile alredy exists in mongodb');
-                flow.nextQuestion = question.userExist;
+                const current_status = response.data.status
+                logger.info('The status of the profile ' + profile + ' is ' + current_status);
+                if (current_status == "synced") {
+                    flow.nextQuestion = question.userExist;
+                } else if (current_status == "never_synced" || current_status == "error_synced") {
+                    const response_delete = deleteProfile(profile);
+                    if (response_delete.status == 200) {
+                        // profile deleted successfully
+                        // create new profile
+                        await saveProfile(profile); // TODO manage communications
+                        flow.nextQuestion = question.country;
+                    } else { // undefined or response.status == 400
+                        // there is an error in the response
+                        logger.error('There was an error deleting the profile');
+                        logger.error(response);
+                        flow.nextQuestion = question.finishDueToError;
+                    }
+                }
             } else if (response.status == 404) {
                 // profile not found in the server
                 logger.info('The profile not found in mongodb. Create a new one');
@@ -1150,6 +1167,24 @@ async function saveProfile(profile) {
     });
 }
 
+async function deleteProfile(profile) {
+
+    var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID;
+
+    return axios.delete(session_url, {}, {
+        auth: {
+            username: endpointConfig.middlewareUser,
+            password: endpointConfig.middlewarePassword
+        }
+    }).then(function (response) {
+        logger.info(`Deleted profile. facebookID=${profile.facebookID}. responseStatus=${response.status}`);
+    }).catch(function (error) {
+        logger.error(`Error deleting profile. facebookID=${profile.facebookID}`);
+        logger.error(error);
+    });
+}
+
+
 async function saveOrgUnit(profile) {
 
     var session_url = 'http://' + endpointConfig.middlewareHost + ':' + endpointConfig.middlewarePort + '/profile/' + profile.facebookID + '/ou_uid/' + profile.userOrgUnit;
@@ -1220,9 +1255,9 @@ async function getChildrenOU(profile) {
     } catch (error) {
         logger.error(`Error getChildrenOU orgUnit=${profile.userOrgUnit}`);
         logger.error(error);
-        if (error.response != null){ // If the problem is related to unreachable address, the response value is null (but there is a response key-value in the error).
+        if (error.response != null) { // If the problem is related to unreachable address, the response value is null (but there is a response key-value in the error).
             return error.response;
-        } else{
+        } else {
             return error;
         }
     }
@@ -1243,9 +1278,9 @@ async function getProfile(profile) {
     } catch (error) {
         logger.error(`Error getProfile facebookID=${profile.facebookID}`);
         logger.error(error);
-        if (error.response != null){ // If the problem is related to unreachable address, the response value is null (but there is a response key-value in the error).
+        if (error.response != null) { // If the problem is related to unreachable address, the response value is null (but there is a response key-value in the error).
             return error.response;
-        } else{
+        } else {
             return error;
         }
     }
