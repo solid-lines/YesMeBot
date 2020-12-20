@@ -35,7 +35,7 @@ async function validateLanguage(flow, turnContext, profile) {
 async function questionPolicy(flow, turnContext, profile) {
     flow.nextQuestion = question.validatePolicy;
     let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), profile.messages.questionPolicy);
-    message.attachments = [getInternetAttachment()];
+    //message.attachments = [getInternetAttachment()];
     await turnContext.sendActivity(message);
 }
 
@@ -281,6 +281,7 @@ async function saveAndValidateDateOfBirth(flow, turnContext, profile) {
     if (validation.success) {
         flow.nextQuestion = question.presentAddress;
         await saveDataValue(profile, mapping.dateOfBirth, turnContext.activity.text);
+        await saveDateValue(profile, mapping.age, getAge(turnContext.activity.text));
     } else {
         flow.nextQuestion = question.dateOfBirth;
         await turnContext.sendActivity(validation.message);
@@ -1080,6 +1081,17 @@ function validateDate(potentialDate, profile) {
             message: profile.messages.InvalidDate
         };
     }
+}
+
+function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
 
 
