@@ -281,7 +281,7 @@ async function saveAndValidateDateOfBirth(flow, turnContext, profile) {
     if (validation.success) {
         flow.nextQuestion = question.presentAddress;
         await saveDataValue(profile, mapping.dateOfBirth, turnContext.activity.text);
-        await saveDateValue(profile, mapping.age, getAge(turnContext.activity.text));
+        await saveDataValue(profile, mapping.age, getAge(turnContext.activity.text));
     } else {
         flow.nextQuestion = question.dateOfBirth;
         await turnContext.sendActivity(validation.message);
@@ -1091,7 +1091,7 @@ function getAge(dateString) {
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-    return age;
+    return age.toString();
 }
 
 
