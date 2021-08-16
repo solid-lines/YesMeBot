@@ -10,7 +10,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -54,10 +54,10 @@
                 "Cannot do at all": "Cannot do at all"
             },
             "idn": {
-                "Tidak ada kesulitan": "No - no difficulty",
-                "Beberapa kesulitan": "Yes – some difficulty",
-                "Banyak kesulitan": "Yes – a lot of difficulty",
-                "Tidak dapat melakukan sama sekali": "Cannot do at all"
+                "Tidak sulit": "No - no difficulty",
+                "Sedikit sulit": "Yes – some difficulty",
+                "Sangat sulit": "Yes – a lot of difficulty",
+                "Tidak bisa sama sekali": "Cannot do at all"
             },
             "spn": {
                 "Ninguna dificultad": "No - no difficulty",
@@ -83,10 +83,10 @@
                 "Cannot do at all": "Cannot do at all"
             },
             "idn": {
-                "Tidak ada kesulitan": "No - no difficulty",
-                "Beberapa kesulitan": "Yes – some difficulty",
-                "Banyak kesulitan": "Yes – a lot of difficulty",
-                "Tidak dapat melakukan sama sekali": "Cannot do at all"
+                "Tidak sulit": "No - no difficulty",
+                "Sedikit sulit": "Yes – some difficulty",
+                "Sangat sulit": "Yes – a lot of difficulty",
+                "Tidak bisa sama sekali": "Cannot do at all"
             },
             "spn": {
                 "Ninguna dificultad": "No - no difficulty",
@@ -112,10 +112,10 @@
                 "Cannot do at all": "Cannot do at all"
             },
             "idn": {
-                "Tidak ada kesulitan": "No - no difficulty",
-                "Beberapa kesulitan": "Yes – some difficulty",
-                "Banyak kesulitan": "Yes – a lot of difficulty",
-                "Tidak dapat melakukan sama sekali": "Cannot do at all"
+                "Tidak sulit": "No - no difficulty",
+                "Sedikit sulit": "Yes – some difficulty",
+                "Sangat sulit": "Yes – a lot of difficulty",
+                "Tidak bisa sama sekali": "Cannot do at all"
             },
             "spn": {
                 "Ninguna dificultad": "No - no difficulty",
@@ -141,10 +141,10 @@
                 "Cannot do at all": "Cannot do at all"
             },
             "idn": {
-                "Tidak ada kesulitan": "No - no difficulty",
-                "Beberapa kesulitan": "Yes – some difficulty",
-                "Banyak kesulitan": "Yes – a lot of difficulty",
-                "Tidak dapat melakukan sama sekali": "Cannot do at all"
+                "Tidak sulit": "No - no difficulty",
+                "Sedikit sulit": "Yes – some difficulty",
+                "Sangat sulit": "Yes – a lot of difficulty",
+                "Tidak bisa sama sekali": "Cannot do at all"
             },
             "spn": {
                 "Ninguna dificultad": "No - no difficulty",
@@ -170,10 +170,10 @@
                 "Cannot do at all": "Cannot do at all"
             },
             "idn": {
-                "Tidak ada kesulitan": "No - no difficulty",
-                "Beberapa kesulitan": "Yes – some difficulty",
-                "Banyak kesulitan": "Yes – a lot of difficulty",
-                "Tidak dapat melakukan sama sekali": "Cannot do at all"
+                "Tidak sulit": "No - no difficulty",
+                "Sedikit sulit": "Yes – some difficulty",
+                "Sangat sulit": "Yes – a lot of difficulty",
+                "Tidak bisa sama sekali": "Cannot do at all"
             },
             "spn": {
                 "Ninguna dificultad": "No - no difficulty",
@@ -199,10 +199,10 @@
                 "Cannot do at all": "Cannot do at all"
             },
             "idn": {
-                "Tidak ada kesulitan": "No - no difficulty",
-                "Beberapa kesulitan": "Yes – some difficulty",
-                "Banyak kesulitan": "Yes – a lot of difficulty",
-                "Tidak dapat melakukan sama sekali": "Cannot do at all"
+                "Tidak sulit": "No - no difficulty",
+                "Sedikit sulit": "Yes – some difficulty",
+                "Sangat sulit": "Yes – a lot of difficulty",
+                "Tidak bisa sama sekali": "Cannot do at all"
             },
             "spn": {
                 "Ninguna dificultad": "No - no difficulty",
@@ -251,7 +251,7 @@
             "idn": {
                 "Ibu": "Mother",
                 "Ayah": "Father",
-                "Pengasuh": "Guardian"
+                "Pelindung/Wali": "Guardian"
             },
             "spn": {
                 "Madre": "Mother",
@@ -278,13 +278,13 @@
                 "Widow": "Widow"
             },
             "idn": {
-                "Sendiri": "Single",
+                "Lajang": "Single",
                 "Menikah": "Married",
-                "Bercerai": "Divorced",
-                "Berpisah": "Seperated",
-                "Tinggal bersama": "LWP",
+                "Cerai": "Divorced",
+                "Pisah": "Seperated",
+                "Tinggal dengan pasangan": "LWP",
                 "Orangtua tunggal": "Single parent",
-                "Janda": "Widow"
+                "Pernah menikah": "Widow"
             },
             "spn": {
                 "Soltero/a": "Single",
@@ -391,7 +391,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -416,7 +416,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -441,7 +441,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -466,7 +466,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -491,7 +491,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -516,7 +516,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -541,7 +541,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -566,7 +566,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -591,7 +591,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
@@ -616,7 +616,7 @@
             "idn": {
                 "Perempuan": "Female",
                 "Laki-laki": "Male",
-                "Lain-lain": "Other"
+                "Lainnya": "Other"
             },
             "spn": {
                 "Mujer": "Female",
