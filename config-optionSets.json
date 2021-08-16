@@ -16,6 +16,10 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"               
+            },"cpe":{
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -33,7 +37,11 @@
             "spn": {
                 "Si": "true",
                 "No": "false"
-            }          
+            },
+            "cpe": {
+                "Oo": "true",
+                "Hindi": "false"
+            }
         }
     },
     "x0UrHbYSL3Y": {
@@ -56,6 +64,12 @@
                 "Alguna dificultad": "Yes – some difficulty",
                 "Mucha dificultad": "Yes – a lot of difficulty",
                 "No puedo hacerlo": "Cannot do at all"
+            },
+            "cpe": {
+                "Walang hirap": "No - no difficulty",
+                "May kaunting hirap": "Yes – some difficulty",
+                "Sobrang hirap": "Yes – a lot of difficulty",
+                "Hindi talaga kaya": "Cannot do at all"
             }
         }
     },
@@ -79,6 +93,12 @@
                 "Alguna dificultad": "Yes – some difficulty",
                 "Mucha dificultad": "Yes – a lot of difficulty",
                 "No puedo hacerlo": "Cannot do at all"
+            },
+            "cpe": {
+                "Walang hirap": "No - no difficulty",
+                "May kaunting hirap": "Yes – some difficulty",
+                "Sobrang hirap": "Yes – a lot of difficulty",
+                "Hindi talaga kaya": "Cannot do at all"
             }
         }
     },
@@ -102,6 +122,12 @@
                 "Alguna dificultad": "Yes – some difficulty",
                 "Mucha dificultad": "Yes – a lot of difficulty",
                 "No puedo hacerlo": "Cannot do at all"
+            },
+            "cpe": {
+                "Walang hirap": "No - no difficulty",
+                "May kaunting hirap": "Yes – some difficulty",
+                "Sobrang hirap": "Yes – a lot of difficulty",
+                "Hindi talaga kaya": "Cannot do at all"
             }
         }
     },
@@ -125,6 +151,12 @@
                 "Alguna dificultad": "Yes – some difficulty",
                 "Mucha dificultad": "Yes – a lot of difficulty",
                 "No puedo hacerlo": "Cannot do at all"
+            },
+            "cpe": {
+                "Walang hirap": "No - no difficulty",
+                "May kaunting hirap": "Yes – some difficulty",
+                "Sobrang hirap": "Yes – a lot of difficulty",
+                "Hindi talaga kaya": "Cannot do at all"
             }
         }
     },
@@ -148,6 +180,12 @@
                 "Alguna dificultad": "Yes – some difficulty",
                 "Mucha dificultad": "Yes – a lot of difficulty",
                 "No puedo hacerlo": "Cannot do at all"
+            },
+            "cpe": {
+                "Walang hirap": "No - no difficulty",
+                "May kaunting hirap": "Yes – some difficulty",
+                "Sobrang hirap": "Yes – a lot of difficulty",
+                "Hindi talaga kaya": "Cannot do at all"
             }
         }
     },
@@ -171,6 +209,12 @@
                 "Alguna dificultad": "Yes – some difficulty",
                 "Mucha dificultad": "Yes – a lot of difficulty",
                 "No puedo hacerlo": "Cannot do at all"
+            },
+            "cpe": {
+                "Walang hirap": "No - no difficulty",
+                "May kaunting hirap": "Yes – some difficulty",
+                "Sobrang hirap": "Yes – a lot of difficulty",
+                "Hindi talaga kaya": "Cannot do at all"
             }
         }
     },
@@ -188,6 +232,10 @@
             "spn": {
                 "Si": "yes",
                 "No": "no"
+            },
+            "cpe": {
+                "Oo": "yes",
+                "Hindi": "no"
             }
 
         }
@@ -209,6 +257,11 @@
                 "Madre": "Mother",
                 "Padre": "Father",
                 "Tutor": "Guardian"
+            },
+            "cpe": {
+                "Nanay": "Mother",
+                "Tatay": "Father",
+                "Tagapag-alaga": "Guardian"
             }
         }
     },   
@@ -241,6 +294,15 @@
                 "Viviendo en pareja": "LWP",
                 "Soltero/a con hijo": "Single parent",
                 "Viudo/a": "Widow"
+            },
+            "cpe": {
+                "Single": "Single",
+                "Married": "Married",
+                "Divorced": "Divorced",
+                "Hiwalay": "Seperated",
+                "Nagtatanan": "LWP",
+                "Single parent": "Single parent",
+                "Byuda/Byudo": "Widow"
             }
         }
     },
@@ -258,6 +320,10 @@
             "spn": {
                 "Si": "yes",
                 "No": "no"
+            },
+            "cpe": {
+                "Oo": "yes",
+                "Hindi": "no"
             }
         }
     },
@@ -299,6 +365,18 @@
                 "8": "8",
                 "9": "9",
                 "10": "10"
+            },
+            "cpe": {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6": "6",
+                "7": "7",
+                "8": "8",
+                "9": "9",
+                "10": "10"
             }
         }
     },
@@ -319,6 +397,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -339,6 +422,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -359,6 +447,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -379,6 +472,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -399,6 +497,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -419,6 +522,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -439,6 +547,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -459,6 +572,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -479,6 +597,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -499,6 +622,11 @@
                 "Mujer": "Female",
                 "Hombre": "Male",
                 "Otro": "Other"
+            },
+            "cpe": {
+                "Babae": "Female",
+                "Lalake": "Male",
+                "Iba pa": "Other"
             }
         }
     },
@@ -516,6 +644,10 @@
             "spn": {
                 "Si": "true",
                 "No": "false"
+            },
+            "cpe": {
+                "Oo": "true",
+                "Hindi": "false"
             }
         }
     },
@@ -533,6 +665,10 @@
             "spn": {
                 "Si": "true",
                 "No": "false"
+            },
+            "cpe": {
+                "Oo": "true",
+                "Hindi": "false"
             }
         }
     },
@@ -550,7 +686,11 @@
             "spn": {
                 "Si": "true",
                 "No": "false"
-            }
+            },
+            "cpe": {
+                "Oo": "true",
+                "Hindi": "false"
+            }            
         }
     },
     "KLSVjftH2xS": {
@@ -626,19 +766,25 @@
             "idn":{
                 "Indonesia": "IDN",
                 "Philippines": "PH"
-            }
+            },
+            "cpe":{
+                "Indonesia": "IDN",
+                "Philippines": "PH"
+            }            
         }
     },
     "Languages": {
         "options": {
            "en":{
                 "English": "en",
-                "Bahasa": "idn"
+                "Bahasa": "idn",
+                "Taglish": "cpe"
             },
             "spn":{
                 "Ingles": "en",
-                "Bahasa": "idn"
-            }            
+                "Bahasa": "idn",
+                "Taglish": "cpe"
+            }
         }
     }
 }
