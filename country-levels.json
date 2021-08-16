@@ -14,6 +14,12 @@
             "2": "Regency/City",
             "3": "District",
             "4": "Village"
+        },
+        "cpe": {
+            "1": "Province",
+            "2": "Regency/City",
+            "3": "District",
+            "4": "Village"
         }
     },
     "NPL" : {
@@ -31,7 +37,13 @@
             "2": "District",
             "3": "Municipality",
             "4": "Village/City"
-        }
+        },
+        "cpe": {
+            "1": "Province",
+            "2": "District",
+            "3": "Municipality",
+            "4": "Village/City"
+        },
     },
     "MM" : {
         "levels": 4,
@@ -44,6 +56,12 @@
             "4": "Village"
         },
         "idn": {
+            "1": "Region",
+            "2": "Area (Township)",
+            "3": "Village Track",
+            "4": "Village"
+        },
+        "cpe": {
             "1": "Region",
             "2": "Area (Township)",
             "3": "Village Track",
@@ -67,6 +85,13 @@
             "3": "Commune",
             "4": "Rural Commune/Commune-level Town",
             "5": "Ward"
+        },
+        "cpe": {
+            "1": "Province",
+            "2": "District",
+            "3": "Commune",
+            "4": "Rural Commune/Commune-level Town",
+            "5": "Ward"
         }
     },
     "PH" : {
@@ -80,6 +105,12 @@
             "4": "Barangay/Village"
         },
         "idn": {
+            "1": "Region",
+            "2": "Province",
+            "3": "City/Municipality",
+            "4": "Barangay/Village"
+        },
+        "cpe": {
             "1": "Region",
             "2": "Province",
             "3": "City/Municipality",
