@@ -2,7 +2,7 @@ const messages_all = require('./messages-all.json');
 const optionSets = require('./config-optionSets.json');
 const mapping = require('./mapping.json');
 const axios = require("axios");
-const { MessageFactory } = require("botbuilder");
+const { MessageFactory, CardFactory } = require("botbuilder");
 const logger = require('./logger');
 
 const question = require('./flow.json');
@@ -35,7 +35,7 @@ async function validateLanguage(flow, turnContext, profile) {
 async function questionPolicy(flow, turnContext, profile) {
     flow.nextQuestion = question.validatePolicy;
     let message = MessageFactory.suggestedActions(Object.keys(optionSets[mapping.YesNoFixed].options[profile.userLanguage]), profile.messages.questionPolicy);
-    //message.attachments = [getInternetAttachment()];
+    message.attachments = [getInternetAttachment()];
     await turnContext.sendActivity(message);
 }
 
@@ -43,7 +43,7 @@ async function validatePolicy(flow, turnContext, profile) {
     let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
-        if (["Yes"].includes(validation.validatedValue)) {
+        if (["Yes", "Ya", "Oo"].includes(validation.validatedValue)) {
             var response = await getProfile(profile);
             logger.info('getProfile response.status=' + response.status);
             if (response.status == 200) {
@@ -110,7 +110,7 @@ async function validateUserExist(flow, turnContext, profile) {
     let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
-        if (["Yes"].includes(validation.validatedValue)) {
+        if (["Yes", "Ya", "Oo"].includes(validation.validatedValue)) {
             //TODO Clear (different than remove, because tei&enrollment uid needs to be kept) the mongodb profile
             flow.nextQuestion = question.country;
         } else flow.nextQuestion = question.finishNoSave;
@@ -339,7 +339,7 @@ async function saveAndValidateDisability(flow, turnContext, profile) {
     let validation = validateOption(mapping.disability, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
-        if (["Yes"].includes(validation.validatedValue)) {
+        if (["Yes", "Ya", "Oo"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.disability1;
         } else {
             flow.nextQuestion = question.below21Years;
@@ -463,7 +463,7 @@ async function validateBelow21Years(flow, turnContext, profile) {
     let validation = validateOption(mapping.YesNoFixed, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
-        if (["Yes"].includes(validation.validatedValue)) {
+        if (["Yes", "Ya", "Oo"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.guardian;
         } else {
             flow.nextQuestion = question.maritalStatus;
@@ -507,11 +507,20 @@ async function saveAndValidateGuardianDetails1(flow, turnContext, profile) {
     } else {
         flow.nextQuestion = question.guardianDetails2;
         var mappingGuardianDetails;
-
+        //TODO Allow Multiple languages
         switch (profile.guardian) {
             case "Mother": { mappingGuardianDetails = mapping.motherFirstName; break; }
             case "Father": { mappingGuardianDetails = mapping.fatherFirstName; break; }
             case "Guardian": { mappingGuardianDetails = mapping.guardianFirstName; break; }
+
+            case "Ibu": { mappingGuardianDetails = mapping.motherFirstName; break; }
+            case "Ayah": { mappingGuardianDetails = mapping.fatherFirstName; break; }
+            case "Pelindung/Wali": { mappingGuardianDetails = mapping.guardianFirstName; break; }
+
+            case "Nanay": { mappingGuardianDetails = mapping.motherFirstName; break; }
+            case "Tatay": { mappingGuardianDetails = mapping.fatherFirstName; break; }
+            case "Tagapag-alaga": { mappingGuardianDetails = mapping.guardianFirstName; break; }
+
         }
         await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
@@ -529,11 +538,20 @@ async function saveAndValidateGuardianDetails2(flow, turnContext, profile) {
     } else {
         flow.nextQuestion = question.guardianDetails3;
         var mappingGuardianDetails;
-
+        //TODO Allow Multiple languages
         switch (profile.guardian) {
             case "Mother": { mappingGuardianDetails = mapping.motherMiddleName; break; }
             case "Father": { mappingGuardianDetails = mapping.fatherMiddleName; break; }
             case "Guardian": { mappingGuardianDetails = mapping.guardianMiddleName; break; }
+
+            case "Ibu": { mappingGuardianDetails = mapping.motherMiddleName; break; }
+            case "Ayah": { mappingGuardianDetails = mapping.fatherMiddleName; break; }
+            case "Pelindung/Wali": { mappingGuardianDetails = mapping.guardianMiddleName; break; }
+
+            case "Nanay": { mappingGuardianDetails = mapping.motherMiddleName; break; }
+            case "Tatay": { mappingGuardianDetails = mapping.fatherMiddleName; break; }
+            case "Tagapag-alaga": { mappingGuardianDetails = mapping.guardianMiddleName; break; }
+
         }
         await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
@@ -551,11 +569,20 @@ async function saveAndValidateGuardianDetails3(flow, turnContext, profile) {
     } else {
         flow.nextQuestion = question.guardianDetails4;
         var mappingGuardianDetails;
-
+        //TODO Allow Multiple languages
         switch (profile.guardian) {
             case "Mother": { mappingGuardianDetails = mapping.motherLastName; break; }
             case "Father": { mappingGuardianDetails = mapping.fatherLastName; break; }
             case "Guardian": { mappingGuardianDetails = mapping.guardianLastName; break; }
+
+            case "Ibu": { mappingGuardianDetails = mapping.motherLastName; break; }
+            case "Ayah": { mappingGuardianDetails = mapping.fatherLastName; break; }
+            case "Pelindung/Wali": { mappingGuardianDetails = mapping.guardianLastName; break; }
+
+            case "Nanay": { mappingGuardianDetails = mapping.motherLastName; break; }
+            case "Tatay": { mappingGuardianDetails = mapping.fatherLastName; break; }
+            case "Tagapag-alaga": { mappingGuardianDetails = mapping.guardianLastName; break; }
+
         }
         await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
@@ -574,11 +601,20 @@ async function saveAndValidateGuardianDetails4(flow, turnContext, profile) {
     } else {
         flow.nextQuestion = question.guardianDetails5;
         var mappingGuardianDetails;
-
+        //TODO Allow Multiple languages
         switch (profile.guardian) {
             case "Mother": { mappingGuardianDetails = mapping.motherContactNumber; break; }
             case "Father": { mappingGuardianDetails = mapping.fatherContactNumber; break; }
             case "Guardian": { mappingGuardianDetails = mapping.guardianContactNumber; break; }
+
+            case "Ibu": { mappingGuardianDetails = mapping.motherContactNumber; break; }
+            case "Ayah": { mappingGuardianDetails = mapping.fatherContactNumber; break; }
+            case "Pelindung/Wali": { mappingGuardianDetails = mapping.guardianContactNumber; break; }
+
+            case "Nanay": { mappingGuardianDetails = mapping.motherContactNumber; break; }
+            case "Tatay": { mappingGuardianDetails = mapping.fatherContactNumber; break; }
+            case "Tagapag-alaga": { mappingGuardianDetails = mapping.guardianContactNumber; break; }
+
         }
         await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
@@ -596,11 +632,20 @@ async function saveAndValidateGuardianDetails5(flow, turnContext, profile) {
     } else {
         flow.nextQuestion = question.maritalStatus;
         var mappingGuardianDetails;
-
+        //TODO Allow Multiple languages
         switch (profile.guardian) {
             case "Mother": { mappingGuardianDetails = mapping.motherOccupation; break; }
             case "Father": { mappingGuardianDetails = mapping.fatheerOccupation; break; }
             case "Guardian": { mappingGuardianDetails = mapping.guardianOccupation; flow.nextQuestion = question.guardianDetails6; break; }
+
+            case "Ibu": { mappingGuardianDetails = mapping.motherOccupation; break; }
+            case "Ayah": { mappingGuardianDetails = mapping.fatheerOccupation; break; }
+            case "Pelindung/Wali": { mappingGuardianDetails = mapping.guardianOccupation; flow.nextQuestion = question.guardianDetails6; break; }
+
+            case "Nanay": { mappingGuardianDetails = mapping.motherOccupation; break; }
+            case "Tatay": { mappingGuardianDetails = mapping.fatheerOccupation; break; }
+            case "Tagapag-alaga": { mappingGuardianDetails = mapping.guardianOccupation; flow.nextQuestion = question.guardianDetails6; break; }
+
         }
         await saveDataValue(profile, mappingGuardianDetails, turnContext.activity.text);
     }
@@ -629,9 +674,9 @@ async function questionMaritalStatus(flow, turnContext, profile) {
 
 async function saveAndValidateMaritalStatus(flow, turnContext, profile) {
     let validation = validateOption(mapping.maritalStatus, profile.userLanguage, turnContext.activity.text, profile.messages);
-
+    //TODO Allow Multiple languages
     if (validation.success) {
-        if (["Married", "Menikah", "Tinggal bersama", "Living with partner"].includes(validation.validatedValue)) {
+        if (["Married", "Menikah", "Living with partner", "Tinggal dengan pasangan", "Nagtatanan"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.partnerName;
         } else if (["Single parent", "Orangtua tunggal"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.children;
@@ -696,7 +741,7 @@ async function saveAndValidateChildren(flow, turnContext, profile) {
     let validation = validateOption(mapping.children, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
-        if (["Yes"].includes(validation.validatedValue)) {
+        if (["Yes", "Ya", "Oo"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.numberChildren;
         } else flow.nextQuestion = question.studying;
         await saveDataValue(profile, mapping.children, convertOption(mapping.children, validation.validatedValue, profile.userLanguage));
@@ -803,7 +848,8 @@ async function saveAndValidateStudying(flow, turnContext, profile) {
     if (validation.success) {
         flow.nextQuestion = question.employed;
         await saveDataValue(profile, mapping.studying, convertOption(mapping.children, validation.validatedValue, profile.userLanguage));
-        if (["No"].includes(validation.validatedValue)) {
+        //TODO Allow Multiple languages
+        if (["No", "Tidak", "Hindi"].includes(validation.validatedValue)) {
             profile.studying = 'No';
         }
     } else {
@@ -865,7 +911,6 @@ async function questionYearGraduated(flow, turnContext, profile) {
 async function saveAndValidateYearGraduated(flow, turnContext, profile) {
     let validation = validateYearGraduated(turnContext.activity.text, profile);
     if (validation.success) {
-        //TODO Review language
         if (profile.studying == 'No') {
             flow.nextQuestion = question.stopEducation;
         } else { flow.nextQuestion = question.memberOrganisation; }
@@ -900,7 +945,7 @@ async function saveAndValidateMemberOrganisation(flow, turnContext, profile) {
     let validation = validateOption(mapping.memberOrganisation, profile.userLanguage, turnContext.activity.text, profile.messages);
     if (validation.success) {
         //TODO Allow Multiple languages
-        if (["Yes"].includes(validation.validatedValue)) {
+        if (["Yes", "Ya", "Oo"].includes(validation.validatedValue)) {
             flow.nextQuestion = question.organisationName;
         } else flow.nextQuestion = question.recreations;
         await saveDataValue(profile, mapping.memberOrganisation, convertOption(mapping.memberOrganisation, validation.validatedValue, profile.userLanguage));
@@ -1179,11 +1224,17 @@ function getOrgUnitId(OUs, ou_name) {
 
 function getInternetAttachment() {
     // NOTE: The contentUrl must be HTTPS.
-    return {
+    /*return {
         name: 'ChatbotPolicy.pdf',
         contentType: 'application/pdf',
         contentUrl: 'https://yesme.solidlines.io/ChatbotPolicy.pdf'
-    };
+    };*/
+    const buttons = [{
+        type: 'openUrl',
+        title: 'Open',
+        value: 'https://yesme.solidlines.io/ChatbotPolicy.pdf' }];
+    const card = CardFactory.heroCard('', undefined, buttons, { text: 'ChatbotPolicy.pdf' });
+    return card;
 }
 
 async function saveProfile(profile) {
