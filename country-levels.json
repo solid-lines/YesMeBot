@@ -43,7 +43,7 @@
             "2": "District",
             "3": "Municipality",
             "4": "Village/City"
-        },
+        }
     },
     "MM" : {
         "levels": 4,
