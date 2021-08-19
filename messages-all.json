@@ -177,7 +177,7 @@
         "Welcome": "Welcome sa YesME register bot!",
         "questionLanguage": "Piliin ang lenguahe na komportable para sayo",
         "questionCountry": "Ano ang bansa mo?",
-        "questionPolicy": "Basahin ang Chatbot Data Privacy Policy. Kung sumasangayon ka sa mga naka sulat sa policy, pindutin ang YES button.",
+        "questionPolicy": "Basahin ang Chatbot Data Privacy Policy. Kung sumasangayon ka sa mga naka sulat sa policy, pindutin ang “OO”.",
         "questionUserExists": "Ikaw ay nakarehistro na, gusto mo ba i-edit ang iyong data?",
         "questionOrgUnit": "Ano ang bansa mo ",
         "questionDonor": "Kilala mo ba ang project donor?",
